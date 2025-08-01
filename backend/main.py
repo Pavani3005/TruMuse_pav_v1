@@ -23,7 +23,7 @@ load_dotenv()
 app = FastAPI()
 
 # Mount the frontend folder as a static directory
-app.mount("/frontend", StaticFiles(directory="C:/Users/hp/Desktop/SAP_Hackathon/frontend"), name="frontend")
+app.mount("/frontend", StaticFiles(directory="../frontend"), name="frontend")
 
 app.add_middleware(
     CORSMiddleware,
