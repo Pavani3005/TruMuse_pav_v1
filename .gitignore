@@ -1,0 +1,111 @@
+# Ignore environment files (for SAP HANA, Firebase, Pinecone API keys)
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Ignore Python cache and compiled files (for CLIP and backend processing)
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
+# Ignore virtual environment (used for Python dependencies like CLIP)
+venv/
+env/
+ENV/
+.venv/
+.env/  # Note: This duplicates .env above, but kept for consistency
+
+# Ignore Firebase service account key (SECURITY - NEVER COMMIT THIS!)
+serviceAccountKey.json
+*.json
+!package.json
+!package-lock.json
+
+# Ignore logs and temporary files (e.g., generated PDFs from TruMuse)
+*.log
+logs/
+temp_*
+*.pdf  # Added for Attribution_Report PDFs
+
+# Ignore IDE settings
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Ignore OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Ignore Python distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# Ignore testing artifacts (if used with CLIP or Firebase)
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Ignore Jupyter Notebook
+.ipynb_checkpoints
+
+# Ignore pyenv and pipenv files
+.python-version
+Pipfile.lock
+__pypackages__/
+
+# Ignore Celery
+celerybeat-schedule
+celerybeat.pid
+
+# Ignore SageMath parsed files
+*.sage.py
+
+# Ignore Spyder project settings
+.spyderproject
+.spyproject
+
+# Ignore Rope project settings
+.ropeproject
+
+# Ignore mkdocs documentation
+/site
+
+# Ignore mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Ignore Pyre type checker
+.pyre/
+
+# Ignore FastAPI specific testing artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Add SAP HANA Cloud specific ignores
+*.hdb*
+hana_*
+
+# Add CLIP specific ignores (e.g., model files if downloaded locally)
+*.pt
+*.pth
+
+# Add Pinecone specific ignores (e.g., local vector files)
+pinecone_*
+*.vec
+
+# Keep requirements.txt if created
+!requirements.txt
