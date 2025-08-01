@@ -27,7 +27,7 @@ def generate_attribution_report(image_path, output, artist_infos, bio_summaries)
     custom_style = ParagraphStyle(name='Custom', parent=styles['Normal'], fontSize=12, leading=14)
     
     story = []
-    logo = Image('static/trumuse_logo.png', width=1*inch, height=1*inch)
+    logo = Image('trumuse_logo.png', width=1*inch, height=1*inch)
     story.append(logo)
     story.append(Spacer(1, 12))
     
