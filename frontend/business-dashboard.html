@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Dashboard - TruMuse</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Merriweather:wght@300;400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ===== CSS VARIABLES ===== */
+        :root {
+            --primary-blue: #1a4d6d;
+            --dark-blue: #0f3449;
+            --yellow-accent: #f5d64c;
+            --yellow-hover: #e6c635;
+            --light-blue: #a8c5d6;
+            --white: #ffffff;
+            --text-light: #e8f1f5;
+            --shadow: rgba(0, 0, 0, 0.2);
+            --upgrade-blue: #4db8e8;
+        }
+
+        /* ===== RESET & GLOBAL STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--primary-blue);
+            color: var(--white);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* ===== HEADER STYLES (WITH USER MENU) ===== */
+        .header {
+            background-color: var(--dark-blue);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px var(--shadow);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Logo placeholder */
+        .logo {
+            width: 60px;
+            height: 60px;
+            background-color: var(--yellow-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--dark-blue);
+            text-decoration: none;
+        }
+
+        /* Navigation wrapper */
+        .nav-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        /* Navigation menu */
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--yellow-accent);
+        }
+
+        /* User menu section */
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        /* User profile icon */
+        .user-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--yellow-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .user-icon:hover {
+            transform: scale(1.05);
+        }
+
+        /* Dropdown icon */
+        .dropdown-icon {
+            width: 30px;
+            height: 30px;
+            background-color: var(--yellow-accent);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Logout button */
+        .logout-btn {
+            background-color: var(--upgrade-blue);
+            color: var(--white);
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background-color: #3ca7d7;
+            transform: translateY(-2px);
+        }
+
+        /* ===== DASHBOARD LAYOUT ===== */
+        .dashboard-container {
+            display: flex;
+            margin-top: 80px;
+            min-height: calc(100vh - 80px);
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 250px;
+            background-color: var(--yellow-accent);
+            padding: 2rem 1rem;
+            border-radius: 0 30px 30px 0;
+            margin: 2rem 0 2rem 2rem;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            background-color: var(--light-blue);
+            border-radius: 15px;
+            text-decoration: none;
+            color: var(--dark-blue);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .sidebar-item:hover {
+            background-color: #8fb5cc;
+            transform: translateX(5px);
+        }
+
+        .sidebar-item.active {
+            background-color: #7fa5bc;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Icon placeholder for sidebar items */
+        .sidebar-icon {
+            width: 30px;
+            height: 30px;
+            background-color: var(--dark-blue);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+        }
+
+        /* Main Content Area */
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+        }
+
+        .dashboard-title {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: var(--white);
+        }
+
+        /* Analytics Section */
+        .analytics-container {
+            background-color: var(--yellow-accent);
+            padding: 2rem;
+            border-radius: 30px;
+            color: var(--dark-blue);
+        }
+
+        .analytics-header {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--dark-blue);
+            font-weight: bold;
+        }
+
+        /* Analytics Grid */
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+        }
+
+        /* Metrics Section */
+        .metrics-section {
+            background-color: rgba(255, 255, 255, 0.3);
+            padding: 2rem;
+            border-radius: 20px;
+        }
+
+        .metrics-title {
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        /* Chart placeholder */
+        .chart-placeholder {
+            width: 100%;
+            height: 150px;
+            background-color: var(--dark-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        /* Impressionist Section */
+        .impressionist-section {
+            background-color: rgba(255, 255, 255, 0.3);
+            padding: 2rem;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        /* Pie chart placeholder */
+        .pie-chart {
+            width: 150px;
+            height: 150px;
+            background-color: var(--dark-blue);
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+        }
+
+        /* Bottom Analytics Row */
+        .analytics-bottom {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .analytics-card {
+            background-color: rgba(255, 255, 255, 0.3);
+            padding: 2rem;
+            border-radius: 20px;
+        }
+
+        .analytics-card h3 {
+            margin-bottom: 1rem;
+            color: var(--dark-blue);
+        }
+
+        /* Placeholder for artwork/icon */
+        .placeholder-icon {
+            width: 100px;
+            height: 100px;
+            background-color: rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            margin: 1rem auto;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--dark-blue);
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        .footer p {
+            color: var(--text-light);
+            margin: 0.5rem 0;
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 1024px) {
+            .dashboard-container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                margin: 1rem;
+                display: flex;
+                overflow-x: auto;
+                padding: 1rem;
+                gap: 1rem;
+            }
+
+            .sidebar-item {
+                flex-shrink: 0;
+                margin-bottom: 0;
+            }
+
+            .analytics-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .dashboard-title {
+                font-size: 2rem;
+            }
+
+            .analytics-bottom {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== HEADER WITH USER NAVIGATION ===== -->
+    <header class="header">
+        <nav class="nav-container">
+            <!-- Logo - Replace with your actual logo -->
+            <a href="index.html" class="logo">
+                LOGO
+            </a>
+            
+            <!-- Navigation and User Menu -->
+            <div class="nav-wrapper">
+                <!-- Main Navigation Links -->
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="artists.html">Artists</a>
+                    <a href="businesses.html" class="active">Businesses</a>
+                    <a href="about.html">About Us</a>
+                </div>
+
+                <!-- User Menu Section -->
+                <div class="user-menu">
+                    <!-- User Profile Icon - Add actual user icon here -->
+                    <div class="user-icon">
+                        <span>👤</span>
+                    </div>
+                    
+                    <!-- Dropdown Icon - Add actual dropdown icon here -->
+                    <div class="dropdown-icon">
+                        <span>▼</span>
+                    </div>
+                    
+                    <!-- Logout Button -->
+                    <a href="login.html" class="logout-btn">Logout</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ===== DASHBOARD CONTAINER ===== -->
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <!-- Upload Reference -->
+            <a href="business-upload.html" class="sidebar-item">
+                <div class="sidebar-icon">⬆</div>
+                <span>Upload Reference</span>
+            </a>
+
+            <!-- Attribution & Influence Report -->
+            <a href="business-attribution.html" class="sidebar-item">
+                <div class="sidebar-icon">📊</div>
+                <span>Attribution & Influence Report</span>
+            </a>
+
+            <!-- Connect with Artists -->
+            <a href="business-connect.html" class="sidebar-item">
+                <div class="sidebar-icon">🤝</div>
+                <span>Connect with Artists</span>
+            </a>
+
+            <!-- Analytics (Active) -->
+            <a href="business-dashboard.html" class="sidebar-item active">
+                <div class="sidebar-icon">📈</div>
+                <span>Analytics</span>
+            </a>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <h1 class="dashboard-title">Business Dashboard</h1>
+
+            <!-- Analytics Container -->
+            <div class="analytics-container">
+                <h2 class="analytics-header">ANALYTICS</h2>
+
+                <!-- Top Analytics Grid -->
+                <div class="analytics-grid">
+                    <!-- Metrics Section -->
+                    <div class="metrics-section">
+                        <h3 class="metrics-title">METRICS:</h3>
+                        <p>N uploads per week</p>
+                        <!-- Chart Placeholder - Add actual chart here -->
+                        <div class="chart-placeholder">
+                            [Bar Chart]
+                        </div>
+                    </div>
+
+                    <!-- Impressionist Section -->
+                    <div class="impressionist-section">
+                        <!-- Pie Chart Placeholder - Add actual pie chart here -->
+                        <div class="pie-chart">
+                            [Pie Chart]
+                        </div>
+                        <div>
+                            <p>Your recent uploads have shown high resemblance to Impressionist artists.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Analytics Row -->
+                <div class="analytics-bottom">
+                    <!-- Most Matched Artists -->
+                    <div class="analytics-card">
+                        <h3>Most Matched Artists</h3>
+                        <p>Lorem ipsum.....</p>
+                        <!-- Artist icon placeholder -->
+                        <div class="placeholder-icon"></div>
+                    </div>
+
+                    <!-- Style Evolution -->
+                    <div class="analytics-card">
+                        <h3>Style Evolution</h3>
+                        <p>Lorem ipsum.....</p>
+                        <!-- Evolution icon placeholder -->
+                        <div class="placeholder-icon"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <p>&copy; 2025 TruMuse. All rights reserved.</p>
+        <p>Built with ethics, powered by creativity.</p>
+    </footer>
+</body>
+</html>

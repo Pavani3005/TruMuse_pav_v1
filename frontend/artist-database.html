@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Art Database - TruMuse</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Merriweather:wght@300;400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ===== CSS VARIABLES ===== */
+        :root {
+            --primary-blue: #1a4d6d;
+            --dark-blue: #0f3449;
+            --yellow-accent: #f5d547;
+            --yellow-hover: #e6c635;
+            --light-blue: #a8c5d6;
+            --white: #ffffff;
+            --text-light: #e8f1f5;
+            --shadow: rgba(0, 0, 0, 0.2);
+            --upgrade-blue: #4db8e8;
+        }
+
+        /* ===== RESET & GLOBAL STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--primary-blue);
+            color: var(--white);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* ===== HEADER STYLES (Same as analytics page) ===== */
+        .header {
+            background-color: var(--dark-blue);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px var(--shadow);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            background-color: var(--yellow-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--dark-blue);
+            text-decoration: none;
+        }
+
+        .nav-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--yellow-accent);
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .user-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--yellow-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .user-icon:hover {
+            transform: scale(1.05);
+        }
+
+        .dropdown-icon {
+            width: 30px;
+            height: 30px;
+            background-color: var(--yellow-accent);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logout-btn {
+            background-color: var(--upgrade-blue);
+            color: var(--white);
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background-color: #3ca7d7;
+            transform: translateY(-2px);
+        }
+
+        /* ===== DASHBOARD LAYOUT ===== */
+        .dashboard-container {
+            display: flex;
+            margin-top: 80px;
+            min-height: calc(100vh - 80px);
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: var(--yellow-accent);
+            padding: 2rem 1rem;
+            border-radius: 0 30px 30px 0;
+            margin: 2rem 0 2rem 2rem;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            background-color: var(--light-blue);
+            border-radius: 15px;
+            text-decoration: none;
+            color: var(--dark-blue);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .sidebar-item:hover {
+            background-color: #8fb5cc;
+            transform: translateX(5px);
+        }
+
+        .sidebar-item.active {
+            background-color: #7fa5bc;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar-icon {
+            width: 30px;
+            height: 30px;
+            background-color: var(--dark-blue);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+        }
+
+        .dashboard-title {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: var(--white);
+        }
+
+        /* ===== ART DATABASE SPECIFIC STYLES ===== */
+        .database-container {
+            background-color: var(--yellow-accent);
+            padding: 2rem;
+            border-radius: 30px;
+            color: var(--dark-blue);
+        }
+
+        .database-header {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--dark-blue);
+            font-weight: bold;
+        }
+
+        /* Artwork Grid */
+        .artwork-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Artwork Card */
+        .artwork-card {
+            aspect-ratio: 1;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 0.9rem;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            /* Placeholder for artwork images */
+        }
+
+        .artwork-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+
+        /* Upload Info */
+        .upload-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .upload-text {
+            font-weight: 600;
+        }
+
+        /* Upgrade Button */
+        .upgrade-btn {
+            background-color: var(--upgrade-blue);
+            color: var(--white);
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .upgrade-btn:hover {
+            background-color: #3ca7d7;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+
+        /* Artwork List */
+        .artwork-list {
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 20px;
+            padding: 1rem;
+        }
+
+        .artwork-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            background-color: var(--white);
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .artwork-item:hover {
+            background-color: #f5f5f5;
+        }
+
+        .artwork-item-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        /* Triangle icon for artwork */
+        .artwork-icon {
+            width: 30px;
+            height: 30px;
+            background-color: var(--dark-blue);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        }
+
+        .artwork-details {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .artwork-id {
+            font-weight: 600;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--dark-blue);
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        .footer p {
+            color: var(--text-light);
+            margin: 0.5rem 0;
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 1024px) {
+            .dashboard-container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                margin: 1rem;
+                display: flex;
+                overflow-x: auto;
+                padding: 1rem;
+                gap: 1rem;
+            }
+
+            .sidebar-item {
+                flex-shrink: 0;
+                margin-bottom: 0;
+            }
+
+            .artwork-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .dashboard-title {
+                font-size: 2rem;
+            }
+
+            .artwork-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .artwork-details {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== HEADER WITH USER NAVIGATION ===== -->
+    <header class="header">
+        <nav class="nav-container">
+            <!-- Logo - Replace with your actual logo -->
+            <a href="index.html" class="logo">
+                LOGO
+            </a>
+            
+            <!-- Navigation and User Menu -->
+            <div class="nav-wrapper">
+                <!-- Main Navigation Links -->
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="artists.html" class="active">Artists</a>
+                    <a href="businesses.html">Businesses</a>
+                    <a href="about.html">About Us</a>
+                </div>
+
+                <!-- User Menu Section -->
+                <div class="user-menu">
+                    <!-- User Profile Icon -->
+                    <div class="user-icon">
+                        <span>👤</span>
+                    </div>
+                    
+                    <!-- Dropdown Icon -->
+                    <div class="dropdown-icon">
+                        <span>▼</span>
+                    </div>
+                    
+                    <!-- Logout Button -->
+                    <a href="login.html" class="logout-btn">Logout</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ===== DASHBOARD CONTAINER ===== -->
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <!-- Upload Reference -->
+            <a href="artist-upload.html" class="sidebar-item">
+                <div class="sidebar-icon">⬆</div>
+                <span>Upload Reference</span>
+            </a>
+
+            <!-- Attribution & Influence Report -->
+            <a href="artist-attribution.html" class="sidebar-item">
+                <div class="sidebar-icon">📊</div>
+                <span>Attribution & Influence Report</span>
+            </a>
+
+            <!-- My Art Database (Active) -->
+            <a href="artist-database.html" class="sidebar-item active">
+                <div class="sidebar-icon">🗄️</div>
+                <span>My Art Database</span>
+            </a>
+
+            <!-- Notifications -->
+            <a href="artist-notifications.html" class="sidebar-item">
+                <div class="sidebar-icon">🔔</div>
+                <span>Notifications</span>
+            </a>
+
+            <!-- Analytics -->
+            <a href="artist-dashboard.html" class="sidebar-item">
+                <div class="sidebar-icon">📈</div>
+                <span>Analytics</span>
+            </a>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <h1 class="dashboard-title">Artist Dashboard</h1>
+
+            <!-- Art Database Container -->
+            <div class="database-container">
+                <h2 class="database-header">ART DATABASE</h2>
+
+                <!-- Artwork Grid -->
+                <div class="artwork-grid">
+                    <!-- Artwork placeholders - Replace with actual artwork images -->
+                    <div class="artwork-card">[Artwork 1]</div>
+                    <div class="artwork-card">[Artwork 2]</div>
+                    <div class="artwork-card">[Artwork 3]</div>
+                    <div class="artwork-card">[Artwork 4]</div>
+                    <div class="artwork-card">[Artwork 5]</div>
+                </div>
+
+                <!-- Upload Info and Upgrade Button -->
+                <div class="upload-info">
+                    <p class="upload-text">Artworks uploaded by X. Upgrade to pro for more uploads</p>
+                    <a href="#" class="upgrade-btn">Upgrade</a>
+                </div>
+
+                <!-- Artwork List -->
+                <div class="artwork-list">
+                    <!-- Artwork Item 1 -->
+                    <div class="artwork-item">
+                        <div class="artwork-item-left">
+                            <div class="artwork-icon"></div>
+                            <div class="artwork-details">
+                                <span class="artwork-id">Artwork ID: 001</span>
+                                <span>Vectors:[</span>
+                                <span>....]</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Artwork Item 2 -->
+                    <div class="artwork-item">
+                        <div class="artwork-item-left">
+                            <div class="artwork-icon"></div>
+                            <div class="artwork-details">
+                                <span class="artwork-id">Artwork ID: 002</span>
+                                <span>Vectors:[</span>
+                                <span>....]</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Artwork Item 3 -->
+                    <div class="artwork-item">
+                        <div class="artwork-item-left">
+                            <div class="artwork-icon"></div>
+                            <div class="artwork-details">
+                                <span class="artwork-id">Artwork ID: 003</span>
+                                <span>Vectors:[</span>
+                                <span>....]</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <p>&copy; 2025 TruMuse. All rights reserved.</p>
+        <p>Built with ethics, powered by creativity.</p>
+    </footer>
+</body>
+</html>

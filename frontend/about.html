@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - TruMuse</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Merriweather:wght@300;400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ===== CSS VARIABLES ===== */
+        :root {
+            --primary-blue: #1a4d6d;
+            --dark-blue: #0f3449;
+            --yellow-accent: #f5d547;
+            --yellow-hover: #e6c635;
+            --white: #ffffff;
+            --text-light: #e8f1f5;
+            --shadow: rgba(0, 0, 0, 0.2);
+        }
+
+        /* ===== RESET & GLOBAL STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-image: url('images/aboutUs.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--white);
+            line-height: 1.6;
+        }
+
+        /* ===== HEADER STYLES ===== */
+        .header {
+            background-color: var(--dark-blue);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px var(--shadow);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Logo placeholder */
+        .logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;            
+            color: var(--dark-blue);
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: rotate(360deg);
+        }
+
+        /* Navigation menu */
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--yellow-accent);
+        }
+
+        /* Login button */
+        .login-btn {
+            background-color: var(--yellow-accent);
+            color: var(--dark-blue);
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background-color: var(--yellow-hover);
+            transform: translateY(-2px);
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .main-content {
+            margin-top: 80px; /* Space for fixed header */
+            min-height: calc(100vh - 80px);
+            padding: 3rem 0;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Page title */
+        .page-title {
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            color: var(--white);
+            font-family: 'Merriweather', serif;
+            border-bottom: 3px solid var(--yellow-accent);
+            padding-bottom: 1rem;
+            background-color: rgba(15, 50, 78, 0.808);
+            padding: 2rem;
+            border-radius: 10px;
+        }
+
+        /* Section styles */
+        .section {
+            margin-bottom: 3rem;
+            background-color: rgba(15, 50, 78, 0.808);
+            padding: 2rem;
+            border-radius: 10px;
+        }
+
+        .section h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--white);
+            font-style: italic;
+        }
+
+        .section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        /* Quotes styling */
+        .quote {
+            font-style: italic;
+            padding-left: 1rem;
+            border-left: 3px solid var(--yellow-accent);
+            margin: 1rem 0;
+        }
+
+        /* How TruMuse Works section */
+        .how-it-works {
+            margin-top: 3rem;
+            background-color: rgba(15, 50, 78, 0.808);
+            padding: 2rem;
+            border-radius: 10px;
+        }
+        
+        .how-it-works h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--white);
+            font-style: italic;
+        }
+
+        .how-it-works h3 {
+            font-size: 1.3rem;
+            margin: 1.5rem 0 1rem;
+            color: var(--yellow-accent);
+        }
+
+        .how-it-works ul {
+            list-style: disc;
+            padding-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .how-it-works li {
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+        }
+
+        /* Mission statement box */
+        .mission-box {
+            background-color: rgba(245, 213, 71, 0.1);
+            border: 2px solid var(--yellow-accent);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            font-style: italic;
+            text-align: center;
+        }
+
+        /* Team section */
+        .team-section {
+            margin-top: 4rem;
+        }
+
+        .team-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--white);
+            font-style: italic;
+            text-align: center;
+            background-color: rgba(15, 50, 78, 0.808);
+            padding: 2rem;
+            border-radius: 10px;
+        }
+
+        /* Team grid */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            background-color: var(--yellow-accent);
+            padding: 3rem;
+            border-radius: 20px;
+            color: var(--dark-blue);
+        }
+
+        .team-member {
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        /* Team member photo placeholder */
+        .member-photo {
+            width: 180px;
+            height: 230px;
+            background-color: var(--dark-blue);
+            border-radius: 10px;
+            margin: 0 auto 1rem;
+            background-size: cover;
+            background-position: center; 
+        }
+
+        .team-member h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark-blue);
+        }
+
+        .team-member p {
+            font-size: 1rem;
+            color: var(--dark-blue);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background-color: var(--dark-blue);
+            padding: 4rem 0 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .footer-logo {
+            width: 200px;
+            height: 200px;
+            border-radius: 100%;
+            margin: 0 auto 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark-blue);
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+
+        .footer-logo:hover {
+            transform: rotate(360deg);
+        }
+
+        .footer-nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-nav a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .footer-nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--yellow-accent);
+            transition: width 0.3s ease;
+        }
+
+        .footer-nav a:hover::after {
+            width: 100%;
+        }
+
+        .footer-nav a:hover {
+            color: var(--yellow-accent);
+        }
+
+        .footer-tagline {
+            font-style: italic;
+            color: var(--yellow-accent);
+            margin: 2rem 0;
+            font-size: 1.2rem;
+        }
+
+        .contact-section {
+            margin: 3rem 0;
+        }
+
+        .contact-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            color: var(--white);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--yellow-accent);
+            transform: translateY(-2px);
+        }
+
+        .email-contacts {
+            margin-top: 1rem;
+        }
+
+        .email-contacts p {
+            margin: 0.5rem 0;
+        }
+
+        .copyright {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-light);
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+        
+            .footer-nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        /* ===== ANIMATION STYLES ===== */
+        /* Fade and slide up animation */
+        @keyframes fadeSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Scale and fade animation for team members */
+        @keyframes scaleFade {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Slide in from left animation */
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Class to trigger animations */
+        .animate {
+            opacity: 0; /* Start hidden */
+        }
+
+        .page-title.animated {
+            animation: fadeSlideUp 0.6s ease-out forwards;
+        }
+
+        .section.animated {
+            animation: slideInLeft 0.6s ease-out forwards;
+        }
+
+        .how-it-works.animated {
+            animation: fadeSlideUp 0.6s ease-out forwards;
+        }
+
+        .mission-box.animated {
+            animation: scaleFade 0.6s ease-out forwards;
+        }
+
+        .team-section.animated {
+            animation: fadeSlideUp 0.6s ease-out forwards;
+        }
+
+        .team-member.animated {
+            animation: scaleFade 0.6s ease-out 0.2s forwards; /* Slight delay for stagger */
+        }
+
+        .footer.animated {
+            animation: fadeSlideUp 0.6s ease-out forwards;
+        }
+
+        .footer-logo.animated {
+            animation: scaleFade 0.6s ease-out 0.1s forwards; /* Slight delay */
+        }
+
+        .footer-nav.animated {
+            animation: fadeSlideUp 0.6s ease-out 0.2s forwards; /* Slight delay */
+        }
+
+        .footer-tagline.animated {
+            animation: fadeSlideUp 0.6s ease-out 0.3s forwards; /* Slight delay */
+        }
+
+        .contact-section.animated {
+            animation: fadeSlideUp 0.6s ease-out 0.4s forwards; /* Slight delay */
+        }
+
+        .copyright.animated {
+            animation: fadeSlideUp 0.6s ease-out 0.5s forwards; /* Slight delay */
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== HEADER WITH NAVIGATION ===== -->
+    <header class="header">
+        <nav class="nav-container">
+            <!-- Logo - Replace with your actual logo -->
+            <a href="index.html" class="logo">
+                <img src="images/trumuse_logo.png" alt="TruMuse Logo" style="width: 150px; height: 150px; border-radius: 100%;">
+            </a>
+            
+            <!-- Navigation Links -->
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="artists.html">Artists</a>
+                <a href="businesses.html">Businesses</a>
+                <a href="about.html">About Us</a>
+                <a href="login.html" class="login-btn">Login</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Page Title -->
+            <h1 class="page-title animate">About Us</h1>
+
+            <!-- Our Mission Section -->
+            <section class="section animate">
+                <h2>Our Mission</h2>
+                <p class="quote">"Protecting the soul of art in the age of AI"</p>
+                <p>TruMuse exists to protect artistic identity in a time where AI-generated ministry is rising fast. Our mission is to give creators a voice, ensure ethical use of their styles, and build a fair bridge between artists and businesses.</p>
+            </section>
+
+            <!-- How It All Started Section -->
+            <section class="section animate">
+                <h2>How It all started</h2>
+                <p class="quote">"Born from a need for fairness"</p>
+                <p>The idea of TruMuse was born when we saw original artworks being replicated by AI without credit. When creativity is treated like a dataset, something valuable is lost: human intention. We decided to act not by rejecting AI, but by making sure it's used ethically and responsibly. In the AI era, originality is undervalued and misused. TruMuse restores trust, traceability, and respect for creators.</p>
+                <p>We don't just detect style theft we empower creators to stand tall, be seen, and stay protected.</p>
+            </section>
+
+            <!-- How TruMuse Works Section -->
+            <section class="how-it-works animate">
+                <h2>How TruMuse works</h2>
+                
+                <h3>For Artists:</h3>
+                <ul>
+                    <li>Detect AI generated art that resembles your style.</li>
+                    <li>Get visibility with attribution reports.</li>
+                    <li>License your work to interested clients.</li>
+                    <li>Build a digital identity that's protected.</li>
+                </ul>
+
+                <h3>For Businesses:</h3>
+                <ul>
+                    <li>Verify art before using it commercially.</li>
+                    <li>Connect with original creators if similarity is detected.</li>
+                    <li>Build ethical credibility and brand trust.</li>
+                </ul>
+
+                <!-- Mission Statement Box -->
+                <div class="mission-box animate">
+                    <p>We envision a future where AI and human creativity coexist, but with clear boundaries of respect, ownership, and transparency. TruMuse is more than a detection tool; it's a stand for creativity.</p>
+                </div>
+            </section>
+
+            <!-- Meet the Team Section -->
+            <section class="team-section animate">
+                <h2>Meet the team!</h2>
+                
+                <div class="team-grid">
+                    <!-- Team Member 1 -->
+                    <div class="team-member animate">
+                        <div class="member-photo">
+                            <img src="images/pav2.png">
+                        </div>
+                        <h3>Pavani G Krishna</h3>
+                        <p>Vision, Lead &<br>Frontend Dev,<br>Backend Dev</p>
+                    </div>
+
+                    <!-- Team Member 2 -->
+                    <div class="team-member animate">
+                        <div class="member-photo">
+                            <img src="images/parvathy2.png">
+                        </div>
+                        <h3>Parvathy C</h3>
+                        <p>Backend Dev,<br>Research & UI/Ux</p>
+                    </div>
+
+                    <!-- Team Member 3 -->
+                    <div class="team-member animate">
+                        <div class="member-photo">
+                            <img src="images/neh2.png">
+                        </div>
+                        <h3>Neha Kudur</h3>
+                        <p>UI/UX, Research<br>& Docs, Video<br>editing</p>
+                    </div>
+
+                    <!-- Team Member 4 -->
+                    <div class="team-member animate">
+                        <div class="member-photo">
+                            <img src="images/nish_2.png">
+                        </div>
+                        <h3>Nishika Sahu</h3>
+                        <p>Backend Dev, UI/UX<br>& Outreach</p>
+                    </div>
+
+                    <!-- Team Member 5 -->
+                    <div class="team-member animate">
+                        <div class="member-photo">
+                            <img src="images/supp_final2.png">
+                        </div>
+                        <h3>Supreetha M</h3>
+                        <p>Backend Dev,<br>Designer.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer animate">
+        <div class="footer-content">
+            <div class="footer-logo animate">
+                <img src="images/trumuse_logo.png" alt="TruMuse Logo" style="width: 300px; height: 300px; border-radius: 100%;">
+            </div>
+            <nav class="footer-nav animate">
+                <a href="index.html">Home</a>
+                <a href="artists.html">Artists</a>
+                <a href="businesses.html">Businesses</a>
+                <a href="signup.html">Sign up/In</a>
+                <a href="about.html">About Us</a>
+                <a href="#">Report</a>
+                <a href="#">Contact Us</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms & Conditions</a>
+            </nav>
+            <p class="footer-tagline animate">"Protecting the soul of art in the age of AI"</p>
+            <div class="contact-section animate">
+                <h3>Any Queries? Reach out to us!</h3>
+                <div class="social-links">
+                    <a href="#"><span>📷</span> Instagram</a>
+                    <a href="#"><span>💼</span> LinkedIn</a>
+                    <a href="#"><span>🐦</span> Twitter</a>
+                </div>
+                <div class="email-contacts">
+                    <p>Or you can email us :</p>
+                    <p>pavanigk7@gmail.com</p>
+                    <p>nehakudur@gmail.com</p>
+                </div>
+            </div>
+            <div class="copyright animate">
+                <p>&copy; 2025 TruMuse. All rights reserved.</p>
+                <p>Built with ethics, powered by creativity.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== JAVASCRIPT FOR SCROLL ANIMATIONS ===== -->
+    <script>
+        // Debounce function to limit scroll event calls
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // Select all elements with animate class
+        const animatableElements = document.querySelectorAll('.animate');
+
+        // Function to check if element is in viewport and trigger animation
+        function checkScroll() {
+            animatableElements.forEach(element => {
+                // Skip if already animated
+                if (element.classList.contains('animated')) return;
+
+                const rect = element.getBoundingClientRect();
+                const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+
+                // Trigger when element is at least 10% in viewport
+                if (rect.top <= windowHeight * 0.9 && rect.bottom >= 0) {
+                    element.classList.add('animated');
+                    element.classList.remove('animate'); // Remove animate to prevent re-animation
+                }
+            });
+        }
+
+        // Debounced scroll event listener
+        const debouncedCheckScroll = debounce(checkScroll, 100);
+
+        // Initial check on load
+        checkScroll();
+
+        // Add scroll event listener
+        window.addEventListener('scroll', debouncedCheckScroll);
+    </script>
+</body>
+</html>
