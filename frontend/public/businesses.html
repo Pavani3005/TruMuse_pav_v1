@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Businesses - TruMuse</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Merriweather:wght@300;400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ===== CSS VARIABLES ===== */
+        :root {
+            --primary-blue: #1a4d6d;
+            --dark-blue: #0f3449;
+            --yellow-accent: #f5d547;
+            --yellow-hover: #e6c635;
+            --white: #ffffff;
+            --text-light: #e8f1f5;
+            --shadow: rgba(0, 0, 0, 0.2);
+        }
+
+        /* ===== RESET & GLOBAL STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-image: url('images/index_pic.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--white);
+            line-height: 1.6;
+        }
+
+        /* ===== HEADER STYLES ===== */
+        .header {
+            background-color: var(--dark-blue);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px var(--shadow);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Logo placeholder */
+        .logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;            
+            color: var(--dark-blue);
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: rotate(360deg);
+        }
+
+        /* Navigation menu */
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--yellow-accent);
+        }
+
+        /* Login button */
+        .login-btn {
+            background-color: var(--yellow-accent);
+            color: var(--dark-blue);
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background-color: var(--yellow-hover);
+            transform: translateY(-2px);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            margin-top: 80px;
+            padding: 4rem 0;
+            text-align: center;
+            background-color: var(--dark-blue);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--yellow-accent);
+            font-family: 'Merriweather', serif;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        /* Value Proposition Section */
+        .value-section {
+            text-align: center;
+            margin-bottom: 4rem;
+            background-color: rgba(23, 56, 78, 0.925);
+            border-radius: 10px;
+        }
+
+        .value-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--white);
+        }
+
+        .value-section p {
+            font-size: 1.3rem;
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Benefits Section */
+        .benefits-section {
+            margin-bottom: 4rem;
+        }
+
+        .benefits-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: var(--white);
+            background-color: rgba(23, 56, 78, 0.877);
+            border-radius: 10px;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .benefit-card {
+            background-color: rgba(13, 46, 68, 0.884);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            background-color: rgba(27, 23, 5, 0.753);
+        }
+
+        .benefit-icon {
+            width: 80px;
+            height: 80px;
+            background-color: var(--yellow-accent);
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .benefit-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--yellow-accent);
+        }
+
+        .benefit-card p {
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* Use Cases Section */
+        .use-cases {
+            background-color: rgba(15, 59, 88, 0.801);
+            padding: 3rem;
+            border-radius: 20px;
+            margin-bottom: 4rem;
+        }
+
+        .use-cases h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .use-case-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .use-case-item {
+            background-color: var(--yellow-accent);
+            color: var(--dark-blue);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .use-case-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .use-case-item p {
+            line-height: 1.6;
+        }
+
+        /* Process Section */
+        .process-section {
+            margin-bottom: 4rem;
+        }
+
+        .process-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: var(--white);
+            background-color: rgba(23, 56, 78, 0.877);
+            border-radius: 10px;
+        }
+
+        .process-timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .process-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .process-step:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-icon {
+            background-color: var(--yellow-accent);
+            color: var(--dark-blue);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            flex-shrink: 0;
+            z-index: 1;
+        }
+
+        .step-content {
+            margin-left: 2rem;
+            background-color: rgba(13, 43, 70, 0.863);
+            padding: 1.5rem;
+            border-radius: 10px;
+            flex: 1;
+        }
+
+        .step-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--yellow-accent);
+        }
+
+        .step-content p {
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* Connecting line between steps */
+        .process-timeline::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 60px;
+            bottom: 60px;
+            width: 2px;
+            background-color: var(--yellow-accent);
+            opacity: 0.3;
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .pricing-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--white);
+            background-color: rgba(23, 56, 78, 0.877);
+            border-radius: 10px;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background-color: rgba(10, 38, 65, 0.836);
+            padding: 2rem;
+            border-radius: 15px;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .pricing-card.featured {
+            background-color: rgba(145, 122, 23, 0.911);
+            border: 2px solid var(--yellow-accent);
+        }
+
+        .pricing-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--yellow-accent);
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .price-period {
+            font-size: 1rem;
+            font-weight: normal;
+            opacity: 0.8;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features li {
+            padding: 0.5rem 0;
+            color: var(--text-light);
+        }
+
+        .pricing-features li::before {
+            content: '✓ ';
+            color: var(--yellow-accent);
+            font-weight: bold;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 4rem;
+            background-color: rgba(245, 213, 71, 0.1);
+            border-radius: 20px;
+            margin-bottom: 4rem;
+            background-color: rgba(23, 56, 78, 0.877);
+            border-radius: 10px;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--yellow-accent);
+        }
+
+        .cta-section p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            color: var(--text-light);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cta-primary {
+            background-color: var(--yellow-accent);
+            color: var(--dark-blue);
+        }
+
+        .cta-primary:hover {
+            background-color: var(--yellow-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+
+        .cta-secondary {
+            background-color: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .cta-secondary:hover {
+            background-color: var(--white);
+            color: var(--dark-blue);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background-color: var(--dark-blue);
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .footer p {
+            color: var(--text-light);
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .process-step {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .step-content {
+                margin-left: 0;
+                margin-top: 1rem;
+            }
+
+            .process-timeline::before {
+                display: none;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== ANIMATION STYLES ===== */
+        /* Fade and slide up animation */
+        @keyframes fadeSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Scale and fade animation for cards */
+        @keyframes scaleFade {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Slide in from left animation */
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Class to trigger animations */
+        .animate {
+            opacity: 0; /* Start hidden */
+        }
+
+        .hero.animated {
+            animation: fadeSlideUp 0.8s ease-out forwards;
+        }
+
+        .value-section.animated {
+            animation: slideInLeft 0.8s ease-out forwards;
+        }
+
+        .benefits-section.animated {
+            animation: fadeSlideUp 0.8s ease-out forwards;
+        }
+
+        .benefit-card.animated {
+            animation: scaleFade 0.8s ease-out 0.2s forwards; /* Slight delay for stagger */
+        }
+
+        .use-cases.animated {
+            animation: fadeSlideUp 0.8s ease-out forwards;
+        }
+
+        .use-case-item.animated {
+            animation: scaleFade 0.8s ease-out 0.3s forwards; /* Slight delay for stagger */
+        }
+
+        .process-section.animated {
+            animation: fadeSlideUp 0.8s ease-out forwards;
+        }
+
+        .process-step.animated {
+            animation: slideInLeft 0.8s ease-out 0.2s forwards; /* Slight delay for stagger */
+        }
+
+        .pricing-section.animated {
+            animation: fadeSlideUp 0.8s ease-out forwards;
+        }
+
+        .pricing-card.animated {
+            animation: scaleFade 0.8s ease-out 0.2s forwards; /* Slight delay for stagger */
+        }
+
+        .cta-section.animated {
+            animation: scaleFade 0.8s ease-out forwards;
+        }
+
+        .footer.animated {
+            animation: fadeSlideUp 0.8s ease-out forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== HEADER WITH NAVIGATION ===== -->
+    <header class="header">
+        <nav class="nav-container">
+            <!-- Logo - Replace with your actual logo -->
+            <a href="index.html" class="logo">
+                <img src="images/trumuse_logo.png" alt="TruMuse Logo" style="width: 150px; height: 150px; border-radius: 100%;">
+            </a>
+            
+            <!-- Navigation Links -->
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="artists.html">Artists</a>
+                <a href="businesses.html" class="active">Businesses</a>
+                <a href="about.html">About Us</a>
+                <a href="report.html">Report</a>
+                <a href="contact.html">Contact Us</a>
+                <a href="login.html" class="login-btn">Login</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ===== HERO SECTION ===== -->
+    <section class="hero animate">
+        <h1>Build Trust Through Authenticity</h1>
+        <p>Ensure your creative assets are ethically sourced and properly licensed</p>
+    </section>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main-content">
+        <!-- Value Proposition -->
+        <section class="value-section animate">
+            <h2>Why Ethical Art Verification Matters</h2>
+            <p>In today's AI-driven creative landscape, consumers increasingly value authenticity and ethical business practices. TruMuse helps you verify the origin of creative assets, connect with original artists, and build a brand that stands for integrity.</p>
+        </section>
+
+        <!-- Benefits Section -->
+        <section class="benefits-section animate">
+            <h2>Benefits for Your Business</h2>
+            
+            <div class="benefits-grid">
+                <!-- Benefit 1 -->
+                <div class="benefit-card animate">
+                    <div class="benefit-icon">✓</div>
+                    <h3>Risk Mitigation</h3>
+                    <p>Avoid copyright infringement and legal issues by verifying the authenticity of art assets before using them in your campaigns.</p>
+                </div>
+
+                <!-- Benefit 2 -->
+                <div class="benefit-card animate">
+                    <div class="benefit-icon">🤝</div>
+                    <h3>Artist Partnerships</h3>
+                    <p>Connect directly with original artists for authentic collaborations that resonate with your audience and support creative communities.</p>
+                </div>
+
+                <!-- Benefit 3 -->
+                <div class="benefit-card animate">
+                    <div class="benefit-icon">🏆</div>
+                    <h3>Brand Reputation</h3>
+                    <p>Build consumer trust by demonstrating your commitment to ethical practices and supporting original creators.</p>
+                </div>
+
+                <!-- Benefit 4 -->
+                <div class="benefit-card animate">
+                    <div class="benefit-icon">📈</div>
+                    <h3>Market Differentiation</h3>
+                    <p>Stand out from competitors by showcasing authentic, ethically-sourced creative content that tells a real story.</p>
+                </div>
+
+                <!-- Benefit 5 -->
+                <div class="benefit-card animate">
+                    <div class="benefit-icon">📋</div>
+                    <h3>Compliance Ready</h3>
+                    <p>Stay ahead of evolving regulations around AI-generated content with comprehensive documentation and verification.</p>
+                </div>
+
+                <!-- Benefit 6 -->
+                <div class="benefit-card animate">
+                    <div class="benefit-icon">💡</div>
+                    <h3>Creative Innovation</h3>
+                    <p>Access a network of talented artists ready to create custom, original work that perfectly aligns with your brand vision.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Use Cases Section -->
+        <section class="use-cases animate">
+            <h2>Perfect For</h2>
+            
+            <div class="use-case-grid">
+                <div class="use-case-item animate">
+                    <h3>Marketing Agencies</h3>
+                    <p>Ensure all client campaigns use properly licensed artwork and build trust through transparency.</p>
+                </div>
+
+                <div class="use-case-item animate">
+                    <h3>E-commerce Brands</h3>
+                    <p>Verify product designs and marketing materials to protect your brand from legal issues.</p>
+                </div>
+
+                <div class="use-case-item animate">
+                    <h3>Media Companies</h3>
+                    <p>Source authentic visual content and connect with artists for original commissions.</p>
+                </div>
+
+                <div class="use-case-item animate">
+                    <h3>Tech Startups</h3>
+                    <p>Build ethical AI products by ensuring training data respects artist rights and attribution.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Process Section -->
+        <section class="process-section animate">
+            <h2>How It Works</h2>
+            
+            <div class="process-timeline">
+                <!-- Step 1 -->
+                <div class="process-step animate">
+                    <div class="step-icon">1</div>
+                    <div class="step-content">
+                        <h3>Upload & Verify</h3>
+                        <p>Upload any artwork or creative asset you plan to use. Our AI instantly checks it against our database of protected original works.</p>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="process-step animate">
+                    <div class="step-icon">2</div>
+                    <div class="step-content">
+                        <h3>Get Instant Results</h3>
+                        <p>Receive a detailed report showing if the artwork matches any protected styles, including similarity scores and potential sources.</p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="process-step animate">
+                    <div class="step-icon">3</div>
+                    <div class="step-content">
+                        <h3>Connect with Artists</h3>
+                        <p>If a match is found, connect directly with the original artist to negotiate licensing terms or commission original work.</p>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="process-step animate">
+                    <div class="step-icon">4</div>
+                    <div class="step-content">
+                        <h3>Secure Licensing</h3>
+                        <p>Complete licensing agreements through our platform with full legal documentation and transparent terms.</p>
+                    </div>
+                </div>
+
+            
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section class="pricing-section animate">
+            <h2>Choose Your Plan</h2>
+            
+            <div class="pricing-grid">
+                <!-- Starter Plan -->
+                <div class="pricing-card animate">
+                    <h3>Starter</h3>
+                    <div class="price">
+                        Rs. 199<span class="price-period">/month</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Up to 100 verifications/month</li>
+                        <li>Basic similarity reports</li>
+                        <li>Artist contact facilitation</li>
+                        <li>Email support</li>
+                    </ul>
+                </div>
+
+                <!-- Professional Plan -->
+                <div class="pricing-card featured animate">
+                    <h3>Professional</h3>
+                    <div class="price">
+                        Rs. 499<span class="price-period">/month</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Unlimited verifications</li>
+                        <li>Advanced analytics</li>
+                        <li>Direct artist messaging</li>
+                        <li>API access</li>
+                        <li>Priority support</li>
+                        <li>Custom reports</li>
+                    </ul>
+                </div>
+
+                <!-- Enterprise Plan -->
+                <div class="pricing-card animate">
+                    <h3>Enterprise</h3>
+                    <div class="price">
+                        Custom
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Custom volume pricing</li>
+                        <li>Dedicated account manager</li>
+                        <li>Custom integrations</li>
+                        <li>Training & onboarding</li>
+                        <li>SLA guarantee</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section animate">
+            <h2>Start Building Trust Today</h2>
+            <p>Join forward-thinking businesses committed to ethical creative practices</p>
+            
+            <div class="cta-buttons">
+                <a href="signup.html" class="cta-button cta-primary">Start Free Trial</a>
+                <a href="#" class="cta-button cta-secondary">Schedule Demo</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer animate">
+        <div class="footer-content">
+            <div class="footer-logo">
+            <img src="images/trumuse_logo.png" alt="TruMuse Logo" style="width: 300px; height: 300px; border-radius: 100%;">
+            </div>
+            <p>&copy; 2025 TruMuse. All rights reserved.</p>
+            <p>Built with ethics, powered by creativity.</p>
+        </div>
+    </footer>
+
+    <!-- ===== JAVASCRIPT FOR SCROLL ANIMATIONS ===== -->
+    <script>
+        // Debounce function to limit scroll event calls
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // Select all elements with animate class
+        const animatableElements = document.querySelectorAll('.animate');
+
+        // Function to check if element is in viewport and trigger animation
+        function checkScroll() {
+            animatableElements.forEach(element => {
+                // Skip if already animated
+                if (element.classList.contains('animated')) return;
+
+                const rect = element.getBoundingClientRect();
+                const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+
+                // Trigger when element is at least 10% in viewport
+                if (rect.top <= windowHeight * 0.9 && rect.bottom >= 0) {
+                    element.classList.add('animated');
+                    element.classList.remove('animate'); // Remove animate to prevent re-animation
+                }
+            });
+        }
+
+        // Debounced scroll event listener
+        const debouncedCheckScroll = debounce(checkScroll, 100);
+
+        // Initial check on load
+        checkScroll();
+
+        // Add scroll event listener
+        window.addEventListener('scroll', debouncedCheckScroll);
+    </script>
+</body>
+</html>

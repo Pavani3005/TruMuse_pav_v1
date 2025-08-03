@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Artwork - TruMuse</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Merriweather:wght@300;400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-blue: #1a4d6d;
+            --dark-blue: #0f3449;
+            --yellow-accent: #f5d547;
+            --yellow-hover: #e6c635;
+            --light-blue: #a8c5d6;
+            --white: #ffffff;
+            --text-light: #e8f1f5;
+            --shadow: rgba(0, 0, 0, 0.2);
+            --upgrade-blue: #4db8e8;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--primary-blue);
+            color: var(--white);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        /* Header Styles */
+        .header {
+            background-color: var(--dark-blue);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px var(--shadow);
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            width: 60px;
+            height: 60px;
+            background-color: var(--yellow-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--dark-blue);
+            text-decoration: none;
+        }
+        
+        .nav-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--yellow-accent);
+        }
+        
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .user-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--yellow-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .user-icon:hover {
+            transform: scale(1.05);
+        }
+        
+        .dropdown-icon {
+            width: 30px;
+            height: 30px;
+            background-color: var(--yellow-accent);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logout-btn {
+            background-color: var(--upgrade-blue);
+            color: var(--white);
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .logout-btn:hover {
+            background-color: #3ca7d7;
+            transform: translateY(-2px);
+        }
+        
+        /* Dashboard Layout */
+        .dashboard-container {
+            display: flex;
+            margin-top: 120px;
+            min-height: calc(100vh - 120px);
+        }
+        
+        .sidebar {
+            width: 250px;
+            background-color: var(--yellow-accent);
+            padding: 2rem 1rem;
+            border-radius: 0 30px 30px 0;
+            margin: 2rem 0 2rem 2rem;
+        }
+        
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            background-color: var(--light-blue);
+            border-radius: 15px;
+            text-decoration: none;
+            color: var(--dark-blue);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .sidebar-item:hover {
+            background-color: #8fb5cc;
+            transform: translateX(5px);
+        }
+        
+        .sidebar-item.active {
+            background-color: #7fa5bc;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .sidebar-icon {
+            width: 30px;
+            height: 30px;
+            background-color: var(--dark-blue);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+        }
+        
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+        }
+        
+        .dashboard-title {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: var(--white);
+        }
+        
+        /* Upload Section */
+        .upload-container {
+            background-color: var(--yellow-accent);
+            padding: 3rem;
+            border-radius: 30px;
+            color: var(--dark-blue);
+            margin-bottom: 2rem;
+        }
+        
+        .upload-section {
+            text-align: center;
+        }
+        
+        .upload-area {
+            border: 3px dashed var(--dark-blue);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .upload-area:hover {
+            border-color: var(--upgrade-blue);
+            background-color: rgba(77, 184, 232, 0.1);
+        }
+        
+        .upload-area input[type="file"] {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        .upload-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: var(--dark-blue);
+        }
+        
+        .upload-text {
+            font-size: 1.2rem;
+            color: var(--dark-blue);
+            font-weight: 500;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .action-btn {
+            background-color: var(--dark-blue);
+            color: var(--white);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+        
+        .action-btn:hover {
+            background-color: var(--primary-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+        
+        /* Directions Section */
+        .directions-container {
+            background-color: var(--yellow-accent);
+            border-radius: 30px;
+            overflow: hidden;
+            color: var(--dark-blue);
+        }
+        
+        .directions-header {
+            background-color: var(--dark-blue);
+            color: var(--white);
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .directions-header:hover {
+            background-color: var(--primary-blue);
+        }
+        
+        .directions-header h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .toggle-btn.rotated {
+            transform: rotate(180deg);
+        }
+        
+        .directions-content {
+            padding: 2rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.5s ease;
+        }
+        
+        .directions-content.expanded {
+            max-height: 1000px;
+            padding: 2rem;
+        }
+        
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+        
+        .step:hover {
+            transform: translateX(10px);
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background-color: var(--dark-blue);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .step-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark-blue);
+        }
+        
+        .step-content p {
+            color: var(--dark-blue);
+            line-height: 1.6;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--dark-blue);
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: auto;
+        }
+        
+        .footer p {
+            color: var(--text-light);
+            margin: 0.5rem 0;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .dashboard-container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                margin: 1rem;
+                display: flex;
+                overflow-x: auto;
+                padding: 1rem;
+                gap: 1rem;
+            }
+            
+            .sidebar-item {
+                flex-shrink: 0;
+                margin-bottom: 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .dashboard-title {
+                font-size: 2rem;
+            }
+            
+            .upload-area {
+                padding: 2rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .step {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="images/trumuse_logo.png" alt="TruMuse Logo" style="width: 150px; height: 150px; border-radius: 100%;">
+            </a>
+            <div class="nav-wrapper">
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="artists.html" class="active">Artists</a>
+                    <a href="businesses.html">Businesses</a>
+                    <a href="about.html">About Us</a>
+                </div>
+                <div class="user-menu">
+                    <div class="user-icon">
+                        <span>👤</span>
+                    </div>
+                    <div class="dropdown-icon">
+                        <span>▼</span>
+                    </div>
+                    <a href="login.html" class="logout-btn">Logout</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <a href="artist-upload.html" class="sidebar-item active">
+                <div class="sidebar-icon">⬆</div>
+                <span>Upload Artwork</span>
+            </a>
+
+            <a href="artist-heatmap.html" class="sidebar-item">
+                <div class="sidebar-icon">🔥</div>
+                <span>Heatmap Generator</span>
+            </a>
+
+            <a href="artist-attribution.html" class="sidebar-item">
+                <div class="sidebar-icon">📊</div>
+                <span>Attribution & Influence Report</span>
+            </a>
+
+            <a href="artist-notifications.html" class="sidebar-item">
+                <div class="sidebar-icon">🔔</div>
+                <span>Notifications</span>
+            </a>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <h1 class="dashboard-title">Upload Your Artwork</h1>
+            
+            <!-- Upload Section -->
+            <div class="upload-container">
+                <div class="upload-section">
+                    <form id="uploadForm">
+                        <div class="upload-area">
+                            <input type="file" name="image" id="imageUpload" accept="image/*" required>
+                            <div class="upload-icon">⬆</div>
+                            <p class="upload-text">Click to select your artwork or drag and drop</p>
+                        </div>
+                    </form>
+                    <div class="action-buttons">
+                        <button class="action-btn" id="uploadBtn">UPLOAD & ANALYZE</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Directions Tab -->
+            <div class="directions-container">
+                <div class="directions-header" id="directionsHeader">
+                    <h2>How It Works</h2>
+                    <button class="toggle-btn" id="toggleDirections">▼</button>
+                </div>
+                <div class="directions-content" id="directionsContent">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Upload Your Artwork</h3>
+                            <p>Select your original artwork file (JPG, PNG, or other image formats). This will be used to create your unique digital fingerprint.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>AI Analysis</h3>
+                            <p>Our advanced AI system analyzes your artwork using CLIP embeddings to understand your unique artistic style and characteristics.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Database Search</h3>
+                            <p>The system searches through our extensive database of artists to find similar styles and potential influences using vector similarity.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h3>Generate Report</h3>
+                            <p>Receive a detailed attribution report showing similarity scores, potential influences, and recommendations for protecting your style.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <h3>Take Action</h3>
+                            <p>Use the generated heatmaps and reports to understand your artistic influence and take appropriate action if needed.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 TruMuse. All rights reserved.</p>
+        <p>Built with ethics, powered by creativity.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const uploadBtn = document.getElementById('uploadBtn');
+            const uploadForm = document.getElementById('uploadForm');
+            const imageUpload = document.getElementById('imageUpload');
+            const directionsHeader = document.getElementById('directionsHeader');
+            const directionsContent = document.getElementById('directionsContent');
+            const toggleBtn = document.getElementById('toggleDirections');
+
+            console.log('DOM fully loaded and parsed');
+
+            // Toggle directions
+            directionsHeader.addEventListener('click', () => {
+                directionsContent.classList.toggle('expanded');
+                toggleBtn.classList.toggle('rotated');
+            });
+
+            // File selection feedback
+            imageUpload.addEventListener('change', () => {
+                console.log('File selected:', imageUpload.files[0]);
+                if (imageUpload.files.length > 0) {
+                    const uploadText = document.querySelector('.upload-text');
+                    uploadText.textContent = `Selected: ${imageUpload.files[0].name}`;
+                }
+            });
+
+            async function uploadImage() {
+                console.log('uploadImage function called');
+                const formData = new FormData(uploadForm);
+                const fileInput = document.getElementById('imageUpload');
+                
+                if (fileInput.files.length === 0) {
+                    console.error('No file selected');
+                    alert('Please select an image to upload.');
+                    return false;
+                }
+
+                formData.append('image', fileInput.files[0]);
+                
+                for (let [key, value] of formData.entries()) {
+                    console.log(`FormData key: ${key}, value: ${value}, type: ${typeof value}, name: ${value.name}`);
+                }
+
+                try {
+                    const response = await fetch('http://127.0.0.1:8000/upload_and_download', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    
+                    // Redirect to attribution page
+                    window.location.href = 'http://127.0.0.1:8000/frontend/public/artist-attribution.html';
+                    return true;
+                } catch (error) {
+                    console.error('Upload Error:', error);
+                    alert('Failed to upload image. Check console for details.');
+                    return false;
+                }
+            }
+
+            uploadBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                console.log('Upload button clicked');
+                uploadImage();
+            });
+        });
+    </script>
+</body>
+</html>

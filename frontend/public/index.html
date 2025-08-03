@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TruMuse - Protecting the Soul of Art in the Age of AI</title>
+    
+    <!-- Google Fonts for typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Merriweather:wght@300;400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ===== CSS VARIABLES ===== */
+        :root {
+            --primary-blue: #1a4d6d;
+            --dark-blue: #0f3449;
+            --yellow-accent: #e4ca59;
+            --yellow-hover: #f3f1e7;
+            --light-yellow: #f5f1e8;
+            --white: #ffffff;
+            --text-light: #e8f1f5;
+            --shadow: rgba(0, 0, 0, 0.2);
+        }
+
+        /* ===== RESET & GLOBAL STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-image: url('images/index_pic.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--white);
+            line-height: 1.6;
+        }
+
+        /* ===== ANIMATION KEYFRAMES ===== */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes slideLeft {
+            from { transform: translateX(-50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* ===== HEADER STYLES ===== */
+        .header {
+            background-color: var(--dark-blue);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px var(--shadow);
+            animation: slideLeft 0.8s ease-out;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;            
+            color: var(--dark-blue);
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: rotate(360deg);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--yellow-accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--yellow-accent);
+        }
+
+        .login-btn {
+            background-color: var(--yellow-accent);
+            color: var(--dark-blue);
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background-color: var(--yellow-hover);
+            transform: scale(1.1);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            margin-top: 80px;
+            height: 500px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-color: transparent;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 0 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            color: var(--yellow-accent);
+            margin-bottom: 0.5rem;
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            animation: slideUp 1s ease-out 0.3s both;
+        }
+
+        .hero h2 {
+            font-size: 4rem;
+            color: var(--yellow-accent);
+            margin-bottom: 1rem;
+            font-family: 'Merriweather', serif;
+            animation: slideUp 1s ease-out 0.5s both;
+        }
+
+        .hero .tagline {
+            font-size: 1.8rem;
+            color: var(--white);
+            font-weight: 300;
+            margin-bottom: 2rem;
+            animation: slideUp 1s ease-out 0.7s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--dark-blue);
+            color: var(--white);
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            animation: scaleIn 1s ease-out 0.9s both;
+        }
+
+        .cta-button:hover {
+            background-color: var(--yellow-accent);
+            color: var(--dark-blue);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+
+        /* ===== ABOUT SECTION ===== */
+        .about-section {
+            padding: 4rem 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-left: 2rem;
+            padding-right: 2rem;
+            background-color: rgba(15, 52, 73, 0.8); /* Semi-transparent background */
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .about-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .about-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--white);
+        }
+
+        .about-section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: var(--text-light);
+        }
+
+        /* ===== WHY TRUMUSE SECTION ===== */
+        .why-section {
+            padding: 4rem 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-left: 2rem;
+            padding-right: 2rem;
+            background-color: rgba(15, 52, 73, 0.8); /* Semi-transparent background */
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .why-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .why-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .why-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--white);
+        }
+
+        .why-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        /* ===== WHO CAN USE SECTION ===== */
+        .users-section {
+            padding: 4rem 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-left: 2rem;
+            padding-right: 2rem;
+            background-color: rgba(15, 52, 73, 0.8); /* Semi-transparent background */
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .users-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .users-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--white);
+            text-align: center;
+        }
+
+        .users-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            background-color: var(--yellow-accent);
+            padding: 2rem;
+            border-radius: 15px;
+            color: var(--dark-blue);
+        }
+
+        .user-column {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .user-column.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .user-column:nth-child(2) {
+            transition-delay: 0.2s;
+        }
+
+        .user-column h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: var(--dark-blue);
+        }
+
+        .user-column ul {
+            list-style: disc;
+            padding-left: 2rem;
+        }
+
+        .user-column li {
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .use-button {
+            display: block;
+            width: 200px;
+            margin: 3rem auto 0;
+            background-color: var(--dark-blue);
+            color: var(--white);
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+            animation: scaleIn 1s ease-out;
+        }
+
+        .use-button:hover {
+            background-color: var(--primary-blue);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+
+        /* ===== FOOTER SECTION ===== */
+        .footer {
+            background-color: var(--dark-blue);
+            padding: 4rem 0 2rem;
+            margin-top: 4rem;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .footer.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .footer-logo {
+            width: 200px;
+            border-left-width: 200px;
+            height: 200px;
+            border-radius: 100%;
+            margin: 0 auto 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark-blue);
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+
+        .footer-logo:hover {
+            transform: rotate(360deg);
+        }
+
+        .footer-nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-nav a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .footer-nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--yellow-accent);
+            transition: width 0.3s ease;
+        }
+
+        .footer-nav a:hover::after {
+            width: 100%;
+        }
+
+        .footer-nav a:hover {
+            color: var(--yellow-accent);
+        }
+
+        .footer-tagline {
+            font-style: italic;
+            color: var(--yellow-accent);
+            margin: 2rem 0;
+            font-size: 1.2rem;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .contact-section {
+            margin: 3rem 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .contact-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .contact-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            color: var(--white);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--yellow-accent);
+            transform: translateY(-2px);
+        }
+
+        .email-contacts {
+            margin-top: 1rem;
+        }
+
+        .email-contacts p {
+            margin: 0.5rem 0;
+        }
+
+        .copyright {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-light);
+        }
+
+        .image-credit {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            color: var(--white);
+            font-size: 0.9rem;
+            font-style: italic;
+            animation: fadeIn 2s ease-in;
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+
+            .users-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .footer-nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== HEADER WITH NAVIGATION ===== -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="images/trumuse_logo.png" alt="TruMuse Logo" style="width: 150px; height: 150px; border-radius: 100%;">
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="artists.html">Artists</a>
+                <a href="businesses.html">Businesses</a>
+                <a href="about.html">About Us</a>
+                <a href="report.html">Report</a>
+                <a href="contact.html">Contact Us</a>
+                <a href="login.html" class="login-btn">Login</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ===== HERO SECTION ===== -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Welcome to</h1>
+            <h2>TruMuse</h2>
+            <p class="tagline">An Ethical Guard for Creative AI</p>
+            <a href="signup.html" class="cta-button">Get Started!</a>
+        </div>
+        <p class="image-credit">The Hay Wain by John Constable</p>
+    </section>
+
+    <!-- ===== ABOUT TRUMUSE SECTION ===== -->
+    <section class="about-section">
+        <h2>About TruMuse</h2>
+        <p>TruMuse helps artists defend their original works from AI mimicry through ethical detection and licensing.</p>
+    </section>
+
+    <!-- ===== WHY TRUMUSE SECTION ===== -->
+    <section class="why-section">
+        <div class="why-content">
+            <h2>Why TruMuse?</h2>
+            <p>In a world where AI can replicate artistic styles in seconds, original artists are often left uncredited, uncompensated.</p>
+            <p>TruMuse is built to change that.</p>
+            <p>We use ethical AI detection to identify unauthorized style mimicry, generate transparent attribution reports, and connect businesses with real creators, ensuring originality is respected and rewarded.</p>
+        </div>
+    </section>
+
+    <!-- ===== WHO CAN USE SECTION ===== -->
+    <section class="users-section">
+        <h2>Who can use TruMuse?</h2>
+        <div class="users-grid">
+            <div class="user-column">
+                <h3>Artists</h3>
+                <ul>
+                    <li>Protect your art from AI mimicry</li>
+                    <li>Get visible and credited ethically</li>
+                    <li>License your style with consent</li>
+                </ul>
+            </div>
+            <div class="user-column">
+                <h3>Businesses</h3>
+                <ul>
+                    <li>Verify art origins before using it</li>
+                    <li>Build brand trust through authenticity</li>
+                    <li>Reach out to artists for a collaboration</li>
+                </ul>
+            </div>
+        </div>
+        <a href="signup.html" class="use-button">Use TruMuse now!</a>
+    </section>
+
+    <!-- ===== FOOTER SECTION ===== -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+            <img src="images/trumuse_logo.png" alt="TruMuse Logo" style="width: 300px; height: 300px; border-radius: 100%;">
+            </div>
+            <nav class="footer-nav">
+                <a href="index.html">Home</a>
+                <a href="artists.html">Artists</a>
+                <a href="businesses.html">Businesses</a>
+                <a href="signup.html">Sign up/In</a>
+                <a href="about.html">About Us</a>
+                <a href="report.html">Report</a>
+                <a href="contact.html">Contact Us</a>
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="terms-and-conditions.html">Terms & Conditions</a>
+            </nav>
+            <p class="footer-tagline">"Protecting the soul of art in the age of AI"</p>
+            <div class="contact-section">
+                <h3>Any Queries? Reach out to us!</h3>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/bowbow_meowmeow23?igsh=MW91cGhiYnYwa21ldw=="><span>📷</span> Instagram</a>
+                    <a href="https://www.linkedin.com/in/supreetha-m-1a7b6a317?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><span>💼</span> LinkedIn</a>
+                    <a href="https://x.com/TruXMuse25?t=PpHrWXDduYmmHTXFeIZwbQ&s=08"><span>🐦</span> Twitter</a>
+                </div>
+                <div class="email-contacts">
+                    <p>Or you can email us :</p>
+                    <p>bbmmhack05@gmail.com</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 TruMuse. All rights reserved.</p>
+                <p>Built with ethics, powered by creativity.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== JAVASCRIPT FOR SCROLL ANIMATIONS ===== -->
+    <script>
+        // Intersection Observer for scroll-triggered animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -50px 0px' // Trigger slightly before section is fully in view
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                } else {
+                    entry.target.classList.remove('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe sections for scroll animations
+        document.querySelectorAll('.about-section, .why-section, .users-section, .footer, .user-column, .contact-section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+    <div id="root"></div>
+</body>
+</html>

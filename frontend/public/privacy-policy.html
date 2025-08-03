@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - TruMuse</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Merriweather:wght@300;400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ===== CSS VARIABLES ===== */
+        :root {
+            --primary-blue: #1a4d6d;
+            --dark-blue: #0f3449;
+            --yellow-accent: #f5d547;
+            --yellow-hover: #e6c635;
+            --white: #ffffff;
+            --text-light: #e8f1f5;
+            --shadow: rgba(0, 0, 0, 0.2);
+        }
+
+        /* ===== RESET & GLOBAL STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-image: url('images/index_pic.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--white);
+            line-height: 1.6;
+        }
+
+        /* ===== ANIMATION KEYFRAMES ===== */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes slideLeft {
+            from { transform: translateX(-50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* ===== HEADER STYLES ===== */
+        .header {
+            background-color: var(--dark-blue);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px var(--shadow);
+            animation: slideLeft 0.8s ease-out;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark-blue);
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .logo img {
+            width: 150px;
+            height: 150px;
+            border-radius: 100%;
+        }
+
+        .logo:hover {
+            transform: rotate(360deg);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--yellow-accent);
+        }
+
+        .login-btn {
+            background-color: var(--yellow-accent);
+            color: var(--dark-blue);
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background-color: var(--yellow-hover);
+            transform: translateY(-2px);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            margin-top: 80px;
+            padding: 3rem 0;
+            text-align: center;
+            background-color: var(--dark-blue);
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;    
+        }
+
+        .hero.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--yellow-accent);
+            font-family: 'Merriweather', serif;
+            animation: slideUp 1s ease-out 0.3s both;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 0 auto;
+            animation: slideUp 1s ease-out 0.5s both;
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Privacy Policy Section */
+        .privacy-section {
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            background-color: rgba(16, 53, 70, 0.911);
+            padding: 2rem;
+            border-radius: 15px;
+        }
+
+        .privacy-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .privacy-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--white);
+            animation: slideUp 1s ease-out both;
+        }
+
+        .privacy-content {
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .privacy-content h3 {
+            font-size: 1.5rem;
+            color: var(--yellow-accent);
+            margin: 1.5rem 0 0.5rem;
+        }
+
+        .privacy-content p {
+            margin-bottom: 1rem;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            background-color: rgb(17, 57, 80);
+            border-radius: 10px;
+        }
+
+        .faq-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .faq-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--white);
+            animation: slideUp 1s ease-out both;
+            background-color: rgba(17, 57, 80, 0.932);
+            border-radius: 10px;
+        }
+
+        .faq-item {
+            background-color: rgba(17, 57, 80, 0.897);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .faq-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .faq-question {
+            font-weight: 600;
+            color: var(--yellow-accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .faq-answer {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background-color: var(--dark-blue);
+            padding: 1.5rem 0;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .footer.visible {
+            opacity: 1;
+            transform: translateY(0);
+            animation: fadeIn 1s ease-out;
+        }
+
+        .footer p {
+            color: var(--text-light);
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== HEADER WITH NAVIGATION ===== -->
+    <header class="header">
+        <nav class="nav-container">
+            <!-- Logo with replaceable path -->
+            <a href="index.html" class="logo" data-logo-path="images/trumuse_logo.png">
+                <img src="images/trumuse_logo.png" alt="TruMuse Logo">
+            </a>
+            
+            <!-- Navigation Links -->
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="artists.html">Artists</a>
+                <a href="businesses.html">Businesses</a>
+                <a href="about.html">About Us</a>
+                <a href="report.html">Report</a>
+                <a href="contact.html">Contact Us</a>
+                <a href="login.html" class="login-btn">Login</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ===== HERO SECTION ===== -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Our Privacy Policy</h1>
+            <p>Learn how we protect your data at TruMuse</p>
+        </div>
+    </section>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main-content">
+        <!-- Privacy Policy Section -->
+        <section class="privacy-section">
+            <h2>Privacy Policy</h2>
+            
+            <div class="privacy-content">
+                <h3>1. Introduction</h3>
+                <p>Welcome to TruMuse. We are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy outlines how we collect, use, disclose, and safeguard your data.</p>
+
+                <h3>2. Information We Collect</h3>
+                <p>We may collect personal information such as your name, email address, and usage data when you interact with our services. This includes data you provide when submitting reports or contacting us.</p>
+
+                <h3>3. How We Use Your Information</h3>
+                <p>Your information is used to provide and improve our services, process reports, and communicate with you. We do not sell your data to third parties.</p>
+
+                <h3>4. Data Security</h3>
+                <p>We employ industry-standard encryption and security measures to protect your data from unauthorized access or disclosure.</p>
+
+                <h3>5. Your Rights</h3>
+                <p>You have the right to access, correct, or delete your personal data. Contact us at support@trumuse.com to exercise these rights.</p>
+
+                <h3>6. Changes to This Policy</h3>
+                <p>We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated effective date.</p>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">How do I access my data?</div>
+                <div class="faq-answer">Email bbmm05@gmail.com to request access to your data.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Do you share my data?</div>
+                <div class="faq-answer">No, we do not share your data with third parties.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">How can I delete my account?</div>
+                <div class="faq-answer">Contact us at bbmm05@gmail.com to request account deletion.</div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="images/trumuse_logo.png" alt="TruMuse Logo" data-logo-path="images/trumuse_logo.png">
+            </div>
+            <p>&copy; 2025 TruMuse. All rights reserved.</p>
+            <p>Built with ethics, powered by creativity.</p>
+        </div>
+    </footer>
+
+    <!-- ===== JAVASCRIPT FOR SCROLL ANIMATIONS ===== -->
+    <script>
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    if (entry.target.querySelectorAll('.faq-item').length > 0) {
+                        entry.target.querySelectorAll('.faq-item').forEach((item, index) => {
+                            setTimeout(() => item.classList.add('visible'), index * 200);
+                        });
+                    }
+                } else {
+                    entry.target.classList.remove('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe sections for scroll animations
+        document.querySelectorAll('.hero, .privacy-section, .faq-section, .footer').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Update logo paths dynamically if needed
+        document.addEventListener('DOMContentLoaded', () => {
+            const logos = document.querySelectorAll('.logo img, .footer-logo img');
+            logos.forEach(logo => {
+                const dataPath = logo.getAttribute('data-logo-path');
+                if (dataPath) {
+                    logo.src = dataPath;
+                }
+            });
+        });
+
+        // Optional: Function to replace logo path
+        function updateLogoPath(newPath) {
+            const logos = document.querySelectorAll('.logo img, .footer-logo img');
+            logos.forEach(logo => {
+                logo.setAttribute('data-logo-path', newPath);
+                logo.src = newPath;
+            });
+        }
+
+        // Example usage: Uncomment and call with your new path
+        // updateLogoPath('path/to/new/logo.png');
+    </script>
+</body>
+</html>

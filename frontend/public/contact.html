@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Contact Us - TruMuse</title>
+
+    
+
+    <!-- Google Fonts -->
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Merriweather:wght@300;400&display=swap" rel="stylesheet">
+
+    
+
+    <style>
+
+        /* ===== CSS VARIABLES ===== */
+
+        :root {
+
+            --primary-blue: #1a4d6d;
+
+            --dark-blue: #0f3449;
+
+            --yellow-accent: #f5d547;
+
+            --yellow-hover: #e6c635;
+
+            --white: #ffffff;
+
+            --text-light: #e8f1f5;
+
+            --shadow: rgba(0, 0, 0, 0.2);
+
+        }
+
+
+
+        /* ===== RESET & GLOBAL STYLES ===== */
+
+        * {
+
+            margin: 0;
+
+            padding: 0;
+
+            box-sizing: border-box;
+
+        }
+
+
+
+        body {
+
+            font-family: 'Poppins', sans-serif;
+
+            background-image: url('images/index_pic.png');
+
+            background-size: cover;
+
+            background-position: center;
+
+            background-attachment: fixed;
+
+            color: var(--white);
+
+            line-height: 1.6;
+
+        }
+
+
+
+        /* ===== ANIMATION KEYFRAMES ===== */
+
+        @keyframes fadeIn {
+
+            from { opacity: 0; }
+
+            to { opacity: 1; }
+
+        }
+
+
+
+        @keyframes slideUp {
+
+            from { transform: translate(50px); opacity: 0; }
+
+            to { transform: translate(0); opacity: 1; }
+
+        }
+
+
+
+        @keyframes slideLeft {
+
+            from { transform: translate(-50px); opacity: 0; }
+
+            to { transform: translate(0); opacity: 1; }
+
+        }
+
+
+
+        @keyframes scaleIn {
+
+            from { transform: scale(0.8); opacity: 0; }
+
+            to { transform: scale(1); opacity: 1; }
+
+        }
+
+
+
+        /* ===== HEADER STYLES ===== */
+
+        .header {
+
+            background-color: var(--dark-blue);
+
+            padding: 1rem 0;
+
+            position: fixed;
+
+            width: 100%;
+
+            top: 0;
+
+            z-index: 1000;
+
+            box-shadow: 0 2px 10px var(--shadow);
+
+            animation: slideLeft 0.8s ease-out;
+
+        }
+
+
+
+        .nav-container {
+
+            max-width: 1200px;
+
+            margin: 0 auto;
+
+            padding: 0 2rem;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+        }
+
+
+
+        .logo {
+
+            width: 100px;
+
+            height: 100px;
+
+            border-radius: 100%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            color: var(--dark-blue);
+
+            text-decoration: none;
+
+            transition: transform 0.3s ease;
+
+        }
+
+
+
+        .logo img {
+
+            width: 150px;
+
+            height: 150px;
+
+            border-radius: 100%;
+
+        }
+
+
+
+        .logo:hover {
+
+            transform: rotate(360deg);
+
+        }
+
+
+
+        .nav-links {
+
+            display: flex;
+
+            gap: 2rem;
+
+            align-items: center;
+
+        }
+
+
+
+        .nav-links a {
+
+            color: var(--white);
+
+            text-decoration: none;
+
+            font-weight: 500;
+
+            transition: color 0.3s ease;
+
+        }
+
+
+
+        .nav-links a:hover,
+
+        .nav-links a.active {
+
+            color: var(--yellow-accent);
+
+        }
+
+
+
+        .login-btn {
+
+            background-color: var(--yellow-accent);
+
+            color: var(--dark-blue);
+
+            padding: 0.5rem 1.5rem;
+
+            border-radius: 25px;
+
+            text-decoration: none;
+
+            font-weight: 600;
+
+            transition: all 0.3s ease;
+
+        }
+
+
+
+        .login-btn:hover {
+
+            background-color: var(--yellow-hover);
+
+            transform: translate(-2px);
+
+        }
+
+
+
+        /* ===== HERO SECTION ===== */
+
+        .hero {
+
+            margin-top: 80px;
+
+            padding: 3rem 0;
+
+            text-align: center;
+
+            background-color: var(--dark-blue);
+
+            opacity: 0;
+
+            transform: translate(50px);
+
+            transition: opacity 0.8s ease, transform 0.8s ease;    
+
+        }
+
+
+
+        .hero.visible {
+
+            opacity: 1;
+
+            transform: translate(0);
+
+        }
+
+
+
+        .hero h1 {
+
+            font-size: 3rem;
+
+            margin-bottom: 1rem;
+
+            color: var(--yellow-accent);
+
+            font-family: 'Merriweather', serif;
+
+            animation: slideUp 1s ease-out 0.3s both;
+
+        }
+
+
+
+        .hero p {
+
+            font-size: 1.5rem;
+
+            color: var(--text-light);
+
+            max-width: 800px;
+
+            margin: 0 auto;
+
+            animation: slideUp 1s ease-out 0.5s both;
+
+        }
+
+
+
+        /* ===== MAIN CONTENT ===== */
+
+        .main-content {
+
+            max-width: 1200px;
+
+            margin: 0 auto;
+
+            padding: 3rem 2rem;
+
+        }
+
+
+
+        /* Contact Section */
+
+        .contact-section {
+
+            margin-bottom: 3rem;
+
+            opacity: 0;
+
+            transform: translate(50px);
+
+            transition: opacity 0.8s ease, transform 0.8s ease;
+
+            background-color: rgba(16, 53, 70, 0.911);
+
+            padding: 2rem;
+
+            border-radius: 15px;
+
+        }
+
+
+
+        .contact-section.visible {
+
+            opacity: 1;
+
+            transform: translate(0);
+
+        }
+
+
+
+        .contact-section h2 {
+
+            font-size: 2.5rem;
+
+            margin-bottom: 2rem;
+
+            text-align: center;
+
+            color: var(--white);
+
+            animation: slideUp 1s ease-out both;
+
+        }
+
+
+
+        .contact-container {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 2rem;
+
+        }
+
+
+
+        .contact-form {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 1.5rem;
+
+        }
+
+
+
+        .form-group {
+
+            display: flex;
+
+            flex-direction: column;
+
+            animation: fadeIn 1s ease-out;
+
+        }
+
+
+
+        .form-group label {
+
+            font-size: 1.2rem;
+
+            color: var(--yellow-accent);
+
+            margin-bottom: 0.5rem;
+
+        }
+
+
+
+        .form-group input,
+
+        .form-group textarea {
+
+            padding: 0.8rem;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background-color: rgba(11, 52, 71, 0.938);
+
+            color: var(--white);
+
+            font-size: 1rem;
+
+            transition: background-color 0.3s ease;
+
+        }
+
+
+
+        .form-group input:focus,
+
+        .form-group textarea:focus {
+
+            background-color: rgba(27, 24, 9, 0.808);
+
+            outline: none;
+
+        }
+
+
+
+        .form-group textarea {
+
+            min-height: 150px;
+
+            resize: vertical;
+
+        }
+
+
+
+        .submit-btn {
+
+            padding: 0.8rem 2rem;
+
+            background-color: var(--yellow-accent);
+
+            color: var(--dark-blue);
+
+            border: none;
+
+            border-radius: 25px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: all 0.3s ease;
+
+            align-self: flex-end;
+
+            animation: scaleIn 1s ease-out 0.5s both;
+
+        }
+
+
+
+        .submit-btn:hover {
+
+            background-color: var(--yellow-hover);
+
+            transform: translate(-3px);
+
+            box-shadow: 0 5px 15px var(--shadow);
+
+        }
+
+
+
+        .contact-info {
+
+            padding: 1rem;
+
+            background-color: rgba(11, 52, 71, 0.938);
+
+            border-radius: 15px;
+
+            opacity: 0;
+
+            transform: translate(50px);
+
+            transition: opacity 0.8s ease, transform 0.8s ease;
+
+        }
+
+
+
+        .contact-info.visible {
+
+            opacity: 1;
+
+            transform: translate(0);
+
+        }
+
+
+
+        .contact-info h3 {
+
+            font-size: 1.5rem;
+
+            color: var(--yellow-accent);
+
+            margin-bottom: 1rem;
+
+        }
+
+
+
+        .contact-info p {
+
+            color: var(--text-light);
+
+            margin-bottom: 0.5rem;
+
+        }
+
+
+
+        /* FAQ Section */
+
+        .faq-section {
+
+            margin-bottom: 3rem;
+
+            opacity: 0;
+
+            transform: translate(50px);
+
+            transition: opacity 0.8s ease, transform 0.8s ease;
+
+            background-color: rgb(17, 57, 80);
+
+            border-radius: 10px;
+
+        }
+
+
+
+        .faq-section.visible {
+
+            opacity: 1;
+
+            transform: translate(0);
+
+        }
+
+
+
+        .faq-section h2 {
+
+            font-size: 2.5rem;
+
+            margin-bottom: 2rem;
+
+            text-align: center;
+
+            color: var(--white);
+
+            animation: slideUp 1s ease-out both;
+
+            background-color: rgba(17, 57, 80, 0.932);
+
+            border-radius: 10px;
+
+        }
+
+
+
+        .faq-item {
+
+            background-color: rgba(17, 57, 80, 0.897);
+
+            padding: 1rem;
+
+            margin-bottom: 1rem;
+
+            border-radius: 10px;
+
+            cursor: pointer;
+
+            transition: background-color 0.3s ease;
+
+            opacity: 0;
+
+            transform: translate(30px);
+
+            transition: opacity 0.8s ease, transform 0.8s ease;
+
+        }
+
+
+
+        .faq-item.visible {
+
+            opacity: 1;
+
+            transform: translate(0);
+
+        }
+
+
+
+        .faq-question {
+
+            font-weight: 600;
+
+            color: var(--yellow-accent);
+
+            margin-bottom: 0.5rem;
+
+        }
+
+
+
+        .faq-answer {
+
+            color: var(--text-light);
+
+            line-height: 1.6;
+
+        }
+
+
+
+        /* ===== FOOTER ===== */
+
+        .footer {
+
+            background-color: var(--dark-blue);
+
+            padding: 1.5rem 0;
+
+            text-align: center;
+
+            opacity: 0;
+
+            transform: translate(50px);
+
+            transition: opacity 0.8s ease, transform 0.8s ease;
+
+        }
+
+
+
+        .footer.visible {
+
+            opacity: 1;
+
+            transform: translate(0);
+
+            animation: fadeIn 1s ease-out;
+
+        }
+
+
+
+        .footer p {
+
+            color: var(--text-light);
+
+        }
+
+
+
+        /* ===== RESPONSIVE DESIGN ===== */
+
+        @media (max-width: 768px) {
+
+            .hero h1 {
+
+                font-size: 2rem;
+
+            }
+
+
+
+            .hero p {
+
+                font-size: 1.2rem;
+
+            }
+
+
+
+            .contact-container {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+
+            .nav-links {
+
+                gap: 1rem;
+
+                font-size: 0.9rem;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- ===== HEADER WITH NAVIGATION ===== -->
+
+    <header class="header">
+
+        <nav class="nav-container">
+
+            <!-- Logo with replaceable path -->
+
+            <a href="index.html" class="logo" data-logo-path="images/trumuse_logo.png">
+
+                <img src="images/trumuse_logo.png" alt="TruMuse Logo">
+
+            </a>
+
+            
+
+            <!-- Navigation Links -->
+
+            <div class="nav-links">
+
+                <a href="index.html">Home</a>
+
+                <a href="artists.html">Artists</a>
+
+                <a href="businesses.html">Businesses</a>
+
+                <a href="about.html">About Us</a>
+
+                <a href="report.html">Report</a>
+
+                <a href="contact.html" class="active">Contact Us</a>
+
+                <a href="login.html" class="login-btn">Login</a>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- ===== HERO SECTION ===== -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <h1>Get in Touch with TruMuse</h1>
+
+            <p>We’re here to support your creative journey</p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ===== MAIN CONTENT ===== -->
+
+    <main class="main-content">
+
+        <!-- Contact Section -->
+
+        <section class="contact-section">
+
+            <h2>Contact Us</h2>
+
+            
+
+            <div class="contact-container">
+
+                <form class="contact-form" action="/submit_contact" method="post" onsubmit="handleSubmit(event)">
+
+                    <div class="form-group">
+
+                        <label for="name">Your Name</label>
+
+                        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="email">Your Email</label>
+
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="message">Message</label>
+
+                        <textarea id="message" name="message" placeholder="How can we assist you?" required></textarea>
+
+                    </div>
+
+                    <button type="submit" class="submit-btn">Send Message</button>
+
+                </form>
+
+                <div class="contact-info">
+
+                    <h3>Contact Information</h3>
+
+                    <p><strong>Email:</strong> bbmmhack05@gmail.com</p>
+
+                    <p><strong>Phone:</strong> +1-800-TRUMUSE</p>
+
+                    <p><strong>Address:</strong> 123 Creativity Lane, Art City, AC 12345</p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- FAQ Section -->
+
+        <section class="faq-section">
+
+            <h2>Frequently Asked Questions</h2>
+
+            
+
+            <div class="faq-item">
+
+                <div class="faq-question">How do I reach support?</div>
+
+                <div class="faq-answer">Email us at bbmmhack05@gmail.com or call +1-800-TRUMUSE.</div>
+
+            </div>
+
+
+
+            <div class="faq-item">
+
+                <div class="faq-question">What hours are you available?</div>
+
+                <div class="faq-answer">Monday to Friday, 9 AM - 5 PM IST.</div>
+
+            </div>
+
+
+
+            <div class="faq-item">
+
+                <div class="faq-question">Can I visit your office?</div>
+
+                <div class="faq-answer">Yes, by appointment at 123 Creativity Lane, Art City, AC 12345.</div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- ===== FOOTER ===== -->
+
+    <footer class="footer">
+
+        <div class="footer-content">
+
+            <div class="footer-logo">
+
+                <img src="images/trumuse_logo.png" alt="TruMuse Logo" data-logo-path="images/trumuse_logo.png">
+
+            </div>
+
+            <p>&copy; 2025 TruMuse. All rights reserved.</p>
+
+            <p>Built with ethics, powered by creativity.</p>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- ===== JAVASCRIPT FOR SCROLL ANIMATIONS AND FORM SUBMISSION ===== -->
+
+    <script>
+
+        const observerOptions = {
+
+            threshold: 0.2,
+
+            rootMargin: '0px 0px -50px 0px'
+
+        };
+
+
+
+        const observer = new IntersectionObserver((entries, observer) => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+
+                    entry.target.classList.add('visible');
+
+                    if (entry.target.querySelectorAll('.faq-item').length > 0) {
+
+                        entry.target.querySelectorAll('.faq-item').forEach((item, index) => {
+
+                            setTimeout(() => item.classList.add('visible'), index * 200);
+
+                        });
+
+                    }
+
+                    if (entry.target.classList.contains('contact-section')) {
+
+                        entry.target.querySelectorAll('.form-group, .contact-info').forEach((element, index) => {
+
+                            setTimeout(() => element.classList.add('visible'), index * 200);
+
+                        });
+
+                    }
+
+                } else {
+
+                    entry.target.classList.remove('visible');
+
+                }
+
+            });
+
+        }, observerOptions);
+
+
+
+        // Observe sections for scroll animations
+
+        document.querySelectorAll('.hero, .contact-section, .faq-section, .footer').forEach(section => {
+
+            observer.observe(section);
+
+        });
+
+
+
+        // Update logo paths dynamically if needed
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const logos = document.querySelectorAll('.logo img, .footer-logo img');
+
+            logos.forEach(logo => {
+
+                const dataPath = logo.getAttribute('data-logo-path');
+
+                if (dataPath) {
+
+                    logo.src = dataPath;
+
+                }
+
+            });
+
+
+
+            const formGroups = document.querySelectorAll('.form-group');
+
+            formGroups.forEach(group => {
+
+                group.style.opacity = '1';
+
+                group.style.transform = 'translate(0)';
+
+            });
+
+        });
+
+
+
+        // Function to handle form submission
+
+        function handleSubmit(event) {
+
+            event.preventDefault(); // Prevent default form submission
+
+            alert("Thankyou! Your message has been submitted.");
+
+            window.location.href = "index.html"; // Redirect to home page after alert is closed
+
+        }
+
+
+
+        // Optional: Function to replace logo path
+
+        function updateLogoPath(newPath) {
+
+            const logos = document.querySelectorAll('.logo img, .footer-logo img');
+
+            logos.forEach(logo => {
+
+                logo.setAttribute('data-logo-path', newPath);
+
+                logo.src = newPath;
+
+            });
+
+        }
+
+
+
+        // Example usage: Uncomment and call with your new path
+
+        // updateLogoPath('path/to/new/logo.png');
+
+    </script>
+
+</body>
+
+</html>

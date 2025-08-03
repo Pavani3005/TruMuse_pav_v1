@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artist Heatmap - TruMuse</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Merriweather:wght@300;400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ===== CSS VARIABLES ===== */
+        :root {
+            --primary-blue: #1a4d6d;
+            --dark-blue: #0f3449;
+            --yellow-accent: #f5d547;
+            --yellow-hover: #e6c635;
+            --light-blue: #a8c5d6;
+            --white: #ffffff;
+            --text-light: #e8f1f5;
+            --shadow: rgba(0, 0, 0, 0.2);
+            --upgrade-blue: #4db8e8;
+        }
+
+        /* ===== RESET & GLOBAL STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--primary-blue);
+            color: var(--white);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* ===== HEADER STYLES ===== */
+        .header {
+            background-color: var(--dark-blue);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px var(--shadow);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;            
+            color: var(--dark-blue);
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--yellow-accent);
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .user-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--yellow-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .user-icon:hover {
+            transform: scale(1.05);
+        }
+
+        .dropdown-icon {
+            width: 30px;
+            height: 30px;
+            background-color: var(--yellow-accent);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logout-btn {
+            background-color: var(--upgrade-blue);
+            color: var(--white);
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background-color: #3ca7d7;
+            transform: translateY(-2px);
+        }
+
+        /* ===== DASHBOARD LAYOUT ===== */
+        .dashboard-container {
+            display: flex;
+            margin-top: 120px;
+            min-height: calc(100vh - 120px);
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: var(--yellow-accent);
+            padding: 2rem 1rem;
+            border-radius: 0 30px 30px 0;
+            margin: 2rem 0 2rem 2rem;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            background-color: var(--light-blue);
+            border-radius: 15px;
+            text-decoration: none;
+            color: var(--dark-blue);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .sidebar-item:hover {
+            background-color: #8fb5cc;
+            transform: translateX(5px);
+        }
+
+        .sidebar-item.active {
+            background-color: #7fa5bc;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar-icon {
+            width: 30px;
+            height: 30px;
+            background-color: var(--dark-blue);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+        }
+
+        .dashboard-title {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: var(--white);
+        }
+
+        /* ===== HEATMAP SECTION STYLES ===== */
+        .heatmap-section {
+            background-color: var(--yellow-accent);
+            padding: 2rem;
+            border-radius: 30px;
+            color: var(--dark-blue);
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .upload-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .upload-area {
+            background-color: var(--dark-blue);
+            height: 200px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upload-area input[type="file"] {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .upload-area:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 20px var(--shadow);
+        }
+
+        .upload-label {
+            color: var(--yellow-accent);
+            font-size: 1.2rem;
+        }
+
+        .action-btn {
+            background-color: var(--dark-blue);
+            color: var(--white);
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .action-btn:hover {
+            background-color: var(--primary-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+
+        .heatmap-display {
+            max-width: 100%;
+            max-height: 400px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 1024px) {
+            .dashboard-container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                margin: 1rem;
+                display: flex;
+                overflow-x: auto;
+                padding: 1rem;
+                gap: 1rem;
+            }
+
+            .sidebar-item {
+                flex-shrink: 0;
+                margin-bottom: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .dashboard-title {
+                font-size: 2rem;
+            }
+        }
+
+        .footer {
+            background-color: var(--dark-blue);
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        .footer p {
+            color: var(--text-light);
+            margin: 0.5rem 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== HEADER WITH USER NAVIGATION ===== -->
+    <header class="header">
+        <nav class="nav-container">
+            <!-- Logo - Replace with your actual logo -->
+            <a href="index.html" class="logo">
+                <img src="images/trumuse_logo.png" alt="TruMuse Logo" style="width: 100px; height: 100px; border-radius: 100%;">
+            </a>
+            
+            <!-- Navigation and User Menu -->
+            <div class="nav-wrapper">
+                <!-- Main Navigation Links -->
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="artists.html" class="active">Artists</a>
+                    <a href="businesses.html">Businesses</a>
+                    <a href="about.html">About Us</a>
+                </div>
+
+                <!-- User Menu Section -->
+                <div class="user-menu">
+                    <!-- User Profile Icon -->
+                    <div class="user-icon">
+                        <span>👤</span>
+                    </div>
+                    
+                    <!-- Dropdown Icon -->
+                    <div class="dropdown-icon">
+                        <span>▼</span>
+                    </div>
+                    
+                    <!-- Logout Button -->
+                    <a href="login.html" class="logout-btn">Logout</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ===== DASHBOARD CONTAINER ===== -->
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <!-- Upload Artwork -->
+            <a href="artist-upload.html" class="sidebar-item">
+                <div class="sidebar-icon">⬆</div>
+                <span>Upload Artwork</span>
+            </a>
+
+            <!-- Heatmap Generation (Active) -->
+            <a href="artist-heatmap.html" class="sidebar-item active">
+                <div class="sidebar-icon">🔥</div>
+                <span>Heatmap Generator</span>
+            </a>
+
+            <!-- Attribution & Influence Report -->
+            <a href="artist-attribution.html" class="sidebar-item">
+                <div class="sidebar-icon">📊</div>
+                <span>Attribution & Influence Report</span>
+            </a>
+
+            <!-- Notifications -->
+            <a href="artist-notifications.html" class="sidebar-item">
+                <div class="sidebar-icon">🔔</div>
+                <span>Notifications</span>
+            </a>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <h1 class="dashboard-title">Artist Dashboard</h1>
+
+            <!-- Heatmap Section -->
+            <div class="heatmap-section">
+                <div class="upload-section">
+                    <h2>Compare Artworks for Heatmap</h2>
+                    <div class="upload-area">
+                        <input type="file" id="originalUpload" accept="image/*" required>
+                        <span class="upload-label">Upload Original Art</span>
+                    </div>
+                    <div class="upload-area">
+                        <input type="file" id="aiUpload" accept="image/*" required>
+                        <span class="upload-label">Upload AI Art</span>
+                    </div>
+                    <button class="action-btn" id="generateHeatmapBtn">Generate Heatmap</button>
+                    <img class="heatmap-display" id="heatmapImage" src="" alt="Heatmap">
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">  
+        <p>&copy; 2025 TruMuse. All rights reserved.</p>
+        <p>Built with ethics, powered by creativity.</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const originalUpload = document.getElementById('originalUpload');
+            const aiUpload = document.getElementById('aiUpload');
+            const generateHeatmapBtn = document.getElementById('generateHeatmapBtn');
+            const heatmapImage = document.getElementById('heatmapImage');
+
+            generateHeatmapBtn.addEventListener('click', async () => {
+                const originalFile = originalUpload.files[0];
+                const aiFile = aiUpload.files[0];
+
+                if (!originalFile || !aiFile) {
+                    alert('Please upload both original and AI art.');
+                    return;
+                }
+
+                // Add file type validation
+                if (!originalFile.type.startsWith('image/') || !aiFile.type.startsWith('image/')) {
+                    alert('Please upload valid image files.');
+                    return;
+                }
+
+                // Add file size validation (10MB limit)
+                if (originalFile.size > 10 * 1024 * 1024 || aiFile.size > 10 * 1024 * 1024) {
+                    alert('File size must be less than 10MB.');
+                    return;
+                }
+
+                generateHeatmapBtn.textContent = 'Generating...';
+                generateHeatmapBtn.disabled = true;
+
+                const formData = new FormData();
+                formData.append('original_image', originalFile);
+                formData.append('ai_image', aiFile);
+
+                try {
+                    const response = await fetch('http://127.0.0.1:8000/compare_artworks', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    const blob = await response.blob();
+                    heatmapImage.src = URL.createObjectURL(blob);
+                    heatmapImage.style.display = 'block';
+                } catch (error) {
+                    console.error('Heatmap Error:', error);
+                    alert('Failed to generate heatmap. Check console for details.');
+                } finally {
+                    generateHeatmapBtn.textContent = 'Generate Heatmap';
+                    generateHeatmapBtn.disabled = false;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

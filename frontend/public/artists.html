@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Artists - TruMuse</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Merriweather:wght@300;400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ===== CSS VARIABLES ===== */
+        :root {
+            --primary-blue: #1a4d6d;
+            --dark-blue: #0f3449;
+            --yellow-accent: #f5d547;
+            --yellow-hover: #e6c635;
+            --white: #ffffff;
+            --text-light: #e8f1f5;
+            --shadow: rgba(0, 0, 0, 0.2);
+        }
+
+        /* ===== RESET & GLOBAL STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-image: url('images/index_pic.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--white);
+            line-height: 1.6;
+        }
+
+        /* ===== ANIMATION KEYFRAMES ===== */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes slideLeft {
+            from { transform: translateX(-50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* ===== HEADER STYLES ===== */
+        .header {
+            background-color: var(--dark-blue);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px var(--shadow);
+            animation: slideLeft 0.8s ease-out;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;            
+            color: var(--dark-blue);
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: rotate(360deg);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--yellow-accent);
+        }
+
+        .login-btn {
+            background-color: var(--yellow-accent);
+            color: var(--dark-blue);
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background-color: var(--yellow-hover);
+            transform: translateY(-2px);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            margin-top: 80px;
+            padding: 3rem 0;
+            text-align: center;
+            background-color: var(--dark-blue);
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;    
+        }
+
+        .hero.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--yellow-accent);
+            font-family: 'Merriweather', serif;
+            animation: slideUp 1s ease-out 0.3s both;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 0 auto;
+            animation: slideUp 1s ease-out 0.5s both;
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Benefits Section */
+        .benefits-section {
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .benefits-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+            
+        }
+
+        .benefits-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--white);
+            animation: slideUp 1s ease-out both;
+            background-color: rgba(23, 56, 78, 0.877);
+            border-radius: 10px;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            
+        }
+
+        .benefit-card {
+            background-color: rgba(11, 52, 71, 0.938);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            opacity: 1;
+            
+        }
+
+        .benefit-card.visible {
+            opacity: 1;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            background-color: rgba(27, 24, 9, 0.808);
+        }
+
+        .benefit-icon {
+            width: 80px;
+            height: 80px;
+            background-color: var(--yellow-accent);
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .benefit-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--yellow-accent);
+        }
+
+        .benefit-card p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            background-color: rgba(16, 53, 70, 0.911);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .how-it-works.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .how-it-works h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--white);
+            animation: slideUp 1s ease-out both;
+        }
+
+        .steps {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .step.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .step:nth-child(1).visible { transition-delay: 0.2s; }
+        .step:nth-child(2).visible { transition-delay: 0.4s; }
+        .step:nth-child(3).visible { transition-delay: 0.6s; }
+        .step:nth-child(4).visible { transition-delay: 0.8s; }
+        .step:nth-child(5).visible { transition-delay: 1.0s; }
+
+        .step-number {
+            background-color: var(--yellow-accent);
+            color: var(--dark-blue);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .step-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--yellow-accent);
+        }
+
+        .step-content p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 3rem;
+            background-color: rgba(14, 65, 88, 0.781);
+            border-radius: 15px;
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            position: relative;
+            z-index: 1; /* Ensure it’s above other elements */
+        }
+
+        .cta-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--yellow-accent);
+            animation: slideUp 1s ease-out 0.3s both;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+            animation: slideUp 1s ease-out 0.5s both;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0; /* Initial state for animation */
+            transition: opacity 0.8s ease; /* Smooth transition */
+        }
+
+        .cta-buttons.visible {
+            opacity: 1;
+            animation: fadeIn 1s ease-out 0.7s both;
+        }
+
+        .cta-button {
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block; /* Ensure visibility */
+        }
+
+        .cta-primary {
+            background-color: var(--yellow-accent);
+            color: var(--dark-blue);
+        }
+
+        .cta-primary:hover {
+            background-color: var(--yellow-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+
+        .cta-secondary {
+            background-color: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .cta-secondary:hover {
+            background-color: var(--white);
+            color: var(--dark-blue);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            background-color: rgb(17, 57, 80);
+            border-radius: 10px;
+        }
+
+        .faq-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .faq-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--white);
+            animation: slideUp 1s ease-out both;
+            background-color: rgba(17, 57, 80, 0.932);
+            border-radius: 10px;
+        }
+
+        .faq-item {
+            background-color: rgba(17, 57, 80, 0.897);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .faq-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .faq-question {
+            font-weight: 600;
+            color: var(--yellow-accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .faq-answer {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background-color: var(--dark-blue);
+            padding: 1.5rem 0;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .footer.visible {
+            opacity: 1;
+            transform: translateY(0);
+            animation: fadeIn 1s ease-out;
+        }
+
+        .footer p {
+            color: var(--text-light);
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .step {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== HEADER WITH NAVIGATION ===== -->
+    <header class="header">
+        <nav class="nav-container">
+            <!-- Logo -->
+            <a href="index.html" class="logo">
+                <img src="images/trumuse_logo.png" alt="TruMuse Logo" style="width: 150px; height: 150px; border-radius: 100%;">
+            </a>
+            
+            <!-- Navigation Links -->
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="artists.html" class="active">Artists</a>
+                <a href="businesses.html">Businesses</a>
+                <a href="about.html">About Us</a>
+                <a href="report.html">Report</a>
+                <a href="contact.html">Contact Us</a>
+                <a href="login.html" class="login-btn">Login</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ===== HERO SECTION ===== -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Protect Your Artistic Legacy</h1>
+            <p>Your creativity deserves recognition and protection in the age of AI</p>
+        </div>
+    </section>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main-content">
+        <!-- Benefits Section -->
+        <section class="benefits-section">
+            <h2>Why Artists Choose TruMuse</h2>
+            
+            <div class="benefits-grid">
+                <!-- Benefit 1 -->
+                <div class="benefit-card">
+                    <div class="benefit-icon">🛡️</div>
+                    <h3>Style Protection</h3>
+                    <p>AI detects unauthorized style replication, giving you control over your identity.</p>
+                </div>
+
+                <!-- Benefit 2 -->
+                <div class="benefit-card">
+                    <div class="benefit-icon">👁️</div>
+                    <h3>Visibility & Credit</h3>
+                    <p>Attribution reports ensure your work is credited properly.</p>
+                </div>
+
+                <!-- Benefit 3 -->
+                <div class="benefit-card">
+                    <div class="benefit-icon">💰</div>
+                    <h3>Ethical Licensing</h3>
+                    <p>License your style on your terms with fair compensation.</p>
+                </div>
+
+                <!-- Benefit 4 -->
+                <div class="benefit-card">
+                    <div class="benefit-icon">🤝</div>
+                    <h3>Direct Connections</h3>
+                    <p>Connect with businesses appreciating your vision.</p>
+                </div>
+
+                <!-- Benefit 5 -->
+                <div class="benefit-card">
+                    <div class="benefit-icon">📊</div>
+                    <h3>Usage Analytics</h3>
+                    <p>Track how your style is used with detailed reports.</p>
+                </div>
+
+                <!-- Benefit 6 -->
+                <div class="benefit-card">
+                    <div class="benefit-icon">🏛️</div>
+                    <h3>Digital Legacy</h3>
+                    <p>Preserve your legacy with a protected portfolio.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section class="how-it-works">
+            <h2>How TruMuse Works for Artists</h2>
+            
+            <div class="steps">
+                <!-- Step 1 -->
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Upload Your Artwork</h3>
+                        <p> Upload your original artwork to detect AI-generated influences.</p>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+               
+
+                <!-- Step 3 -->
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Get Notified</h3>
+                        <p>Receive alerts to review and act on matches.</p>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Take Legal Action</h3>
+                        <p>Use tools to negotiate or enforce your rights.</p>
+                    </div>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Build Your Network</h3>
+                        <p>Connect with ethical businesses and collectors.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <h2>Ready to Protect Your Art?</h2>
+            <p>Join artists taking control of their creative legacy</p>
+            
+            <div class="cta-buttons">
+                <a href="signup.html" class="cta-button cta-primary">Use TruMuse</a>
+                <a href="login.html" class="cta-button cta-secondary">Login</a>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">Is TruMuse free for artists?</div>
+                <div class="faq-answer">Yes, a free tier includes basic protection and monitoring.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">How accurate is the style detection?</div>
+                <div class="faq-answer">Over 95% accuracy with privacy-respecting AI.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Can I remove my work anytime?</div>
+                <div class="faq-answer">Yes, full control via your dashboard.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">How do licensing deals work?</div>
+                <div class="faq-answer">Negotiate terms directly through our platform.</div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+            <img src="images/trumuse_logo.png" alt="TruMuse Logo" style="width: 300px; height: 300px; border-radius: 100%;">
+            </div>
+            <p>&copy; 2025 TruMuse. All rights reserved.</p>
+            <p>Built with ethics, powered by creativity.</p>
+        </div>
+    </footer>
+
+    <!-- ===== JAVASCRIPT FOR SCROLL ANIMATIONS ===== -->
+    <script>
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    if (entry.target.querySelectorAll('.benefit-card').length > 0) {
+                        entry.target.querySelectorAll('.benefit-card').forEach((card, index) => {
+                            setTimeout(() => card.classList.add('visible'), index * 200);
+                        });
+                    }
+                    if (entry.target.querySelectorAll('.step').length > 0) {
+                        entry.target.querySelectorAll('.step').forEach((step, index) => {
+                            setTimeout(() => step.classList.add('visible'), index * 200);
+                        });
+                    }
+                    if (entry.target.querySelectorAll('.faq-item').length > 0) {
+                        entry.target.querySelectorAll('.faq-item').forEach((item, index) => {
+                            setTimeout(() => item.classList.add('visible'), index * 200);
+                        });
+                    }
+                    if (entry.target.classList.contains('cta-section')) {
+                        entry.target.querySelector('.cta-buttons')?.classList.add('visible');
+                    }
+                } else {
+                    entry.target.classList.remove('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe sections for scroll animations
+        document.querySelectorAll('.hero, .benefits-section, .how-it-works, .cta-section, .faq-section, .footer').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Temporary fix: Force buttons to be visible on load for debugging
+        document.addEventListener('DOMContentLoaded', () => {
+            const ctaButtons = document.querySelector('.cta-buttons');
+            if (ctaButtons) {
+                ctaButtons.style.opacity = '1'; // Force visibility
+                ctaButtons.style.display = 'flex'; // Ensure display
+            }
+        });
+    </script>
+</body>
+</html>
