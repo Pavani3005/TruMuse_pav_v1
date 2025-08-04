@@ -366,11 +366,6 @@
                         <input type="password" name="password" id="password" placeholder="Password" required>
                     </div>
 
-                    <!-- Remember Me Checkbox -->
-                    <div class="remember-me">
-                        <input type="checkbox" id="remember" name="remember">
-                        <label for="remember">Remember Me</label>
-                    </div>
 
                     <!-- Login Button -->
                     <button type="submit" class="login-button" id="loginBtn">LOGIN</button>
@@ -486,10 +481,7 @@
                     if (accountType === 'artist') {
                         window.location.href = 'artist-upload.html';
                     } else if (accountType === 'business') {
-                        window.location.href = 'business-upload.html';
-                    } else {
-                        // Fallback to artist dashboard if account type is not recognized
-                        window.location.href = 'artist-dashboard.html';
+                        window.location.href = 'artist-upload.html';
                     }
                 } else {
                     // User document doesn't exist in Firestore

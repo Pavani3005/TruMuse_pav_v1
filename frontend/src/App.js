@@ -34,7 +34,6 @@ function App() {
               </PrivateRoute>
             }
           />
-          <Route path="/artist-attribution" element={<div>Artist Attribution Page</div>} />
           {/* Remove this line to stop redirecting to login */}
           {/* <Route path="/" element={<Navigate to="/login" replace />} /> */}
         </Routes>

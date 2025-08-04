@@ -426,11 +426,6 @@
                         <input type="password" name="password" placeholder="Password" required>
                     </div>
 
-                    <!-- Remember Me Checkbox -->
-                    <div class="remember-me">
-                        <input type="checkbox" id="remember" name="remember">
-                        <label for="remember">Remember Me</label>
-                    </div>
 
                     <!-- Sign In Button -->
                     <button type="submit" class="signin-button">SIGN IN</button>
@@ -608,14 +603,7 @@
                 });
                 
                 // Set remember me if checked
-                if (rememberMe) {
-                    await auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
-                } else {
-                    await auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
-                }
                 
-                // Show success message
-                alert('Account created successfully! Redirecting to dashboard...');
                 
                 // Store authentication data
                 sessionStorage.setItem('isAuthenticated', 'true');
@@ -625,9 +613,9 @@
                 
                 // Redirect based on account type
                 if (accountType === 'artist') {
-                    window.location.href = 'artist-dashboard.html';
+                    window.location.href = 'artist-upload.html';
                 } else if (accountType === 'business') {
-                    window.location.href = 'business-dashboard.html';
+                    window.location.href = 'artist-upload.html';
                 }
                 
             } catch (error) {

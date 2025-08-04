@@ -277,6 +277,101 @@
             display: none;
         }
 
+        /* Directions Section */
+        .directions-container {
+            background-color: var(--yellow-accent);
+            border-radius: 30px;
+            overflow: hidden;
+            color: var(--dark-blue);
+            margin-top: 2rem;
+        }
+        
+        .directions-header {
+            background-color: var(--dark-blue);
+            color: var(--white);
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .directions-header:hover {
+            background-color: var(--primary-blue);
+        }
+        
+        .directions-header h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .toggle-btn.rotated {
+            transform: rotate(180deg);
+        }
+        
+        .directions-content {
+            padding: 2rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.5s ease;
+        }
+        
+        .directions-content.expanded {
+            max-height: 1000px;
+            padding: 2rem;
+        }
+        
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+        
+        .step:hover {
+            transform: translateX(10px);
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background-color: var(--dark-blue);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .step-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark-blue);
+        }
+        
+        .step-content p {
+            color: var(--dark-blue);
+            line-height: 1.6;
+        }
+
         /* ===== RESPONSIVE DESIGN ===== */
         @media (max-width: 1024px) {
             .dashboard-container {
@@ -369,33 +464,37 @@
                 <span>Upload Artwork</span>
             </a>
 
-            <!-- Heatmap Generation (Active) -->
-            <a href="artist-heatmap.html" class="sidebar-item active">
-                <div class="sidebar-icon">🔥</div>
-                <span>Heatmap Generator</span>
-            </a>
-
             <!-- Attribution & Influence Report -->
             <a href="artist-attribution.html" class="sidebar-item">
                 <div class="sidebar-icon">📊</div>
                 <span>Attribution & Influence Report</span>
             </a>
 
-            <!-- Notifications -->
-            <a href="artist-notifications.html" class="sidebar-item">
-                <div class="sidebar-icon">🔔</div>
-                <span>Notifications</span>
+            <!-- Heatmap Generation (Active) -->
+            <a href="artist-heatmap.html" class="sidebar-item active">
+                <div class="sidebar-icon">🔥</div>
+                <span>Heatmap Generator</span>
+            </a>
+
+            <!-- Analytics -->
+            <a href="artist-analytics.html" class="sidebar-item">
+                <div class="sidebar-icon">📈</div>
+                <span>Analytics</span>
+            </a>
+
+            <a href="artist-connect.html" class="sidebar-item">
+                <div class="sidebar-icon">👥</div>
+                <span>Artist Connect</span>
             </a>
         </aside>
 
         <!-- Main Content Area -->
         <main class="main-content">
-            <h1 class="dashboard-title">Artist Dashboard</h1>
 
             <!-- Heatmap Section -->
             <div class="heatmap-section">
                 <div class="upload-section">
-                    <h2>Compare Artworks for Heatmap</h2>
+                    <h1>Compare Artworks for HEATMAP</h1>
                     <div class="upload-area">
                         <input type="file" id="originalUpload" accept="image/*" required>
                         <span class="upload-label">Upload Original Art</span>
@@ -406,6 +505,55 @@
                     </div>
                     <button class="action-btn" id="generateHeatmapBtn">Generate Heatmap</button>
                     <img class="heatmap-display" id="heatmapImage" src="" alt="Heatmap">
+                </div>
+            </div>
+
+            <!-- Directions Tab -->
+            <div class="directions-container">
+                <div class="directions-header" id="directionsHeader">
+                    <h2>How Heatmap Generation Works</h2>
+                    <button class="toggle-btn" id="toggleDirections">▼</button>
+                </div>
+                <div class="directions-content" id="directionsContent">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Upload Original Artwork</h3>
+                            <p>Select your original artwork file (JPG, PNG, or other image formats). This serves as the reference for comparison and analysis.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Upload AI-Generated Art</h3>
+                            <p>Upload the AI-generated artwork that you want to compare against your original piece for similarity analysis.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>AI-Powered Analysis</h3>
+                            <p>Our advanced AI system analyzes both images using computer vision algorithms to identify visual similarities, patterns, and potential copying.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h3>Generate Heatmap</h3>
+                            <p>The system creates a visual heatmap highlighting areas of high similarity between the original and AI-generated artwork, showing potential copying regions.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <h3>Review Results</h3>
+                            <p>Examine the generated heatmap to understand the extent of similarity and identify specific areas that may require attention or legal action.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>
@@ -424,6 +572,15 @@
             const aiUpload = document.getElementById('aiUpload');
             const generateHeatmapBtn = document.getElementById('generateHeatmapBtn');
             const heatmapImage = document.getElementById('heatmapImage');
+            const directionsHeader = document.getElementById('directionsHeader');
+            const directionsContent = document.getElementById('directionsContent');
+            const toggleBtn = document.getElementById('toggleDirections');
+
+            // Toggle directions
+            directionsHeader.addEventListener('click', () => {
+                directionsContent.classList.toggle('expanded');
+                toggleBtn.classList.toggle('rotated');
+            });
 
             generateHeatmapBtn.addEventListener('click', async () => {
                 const originalFile = originalUpload.files[0];

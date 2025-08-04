@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Analytics - TruMuse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Merriweather:wght@300;400&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <style>
+        :root {
+            --primary-blue: #1a4d6d;
+            --dark-blue: #0f3449;
+            --yellow-accent: #f5d547;
+            --yellow-hover: #e6c635;
+            --light-blue: #a8c5d6;
+            --white: #ffffff;
+            --text-light: #e8f1f5;
+            --shadow: rgba(0, 0, 0, 0.2);
+            --upgrade-blue: #4db8e8;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--primary-blue);
+            color: var(--white);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        .header {
+            background-color: var(--dark-blue);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px var(--shadow);
+        }
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;            
+            color: var(--dark-blue);
+            text-decoration: none;
+            transition: transform 0.3s ease;
+            overflow:hidden
+        }
+
+        .logo:hover {
+            transform: rotate(360deg);
+        }
+        .nav-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--yellow-accent);
+        }
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        .user-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--yellow-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .user-icon:hover {
+            transform: scale(1.05);
+        }
+        .dropdown-icon {
+            width: 30px;
+            height: 30px;
+            background-color: var(--yellow-accent);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .logout-btn {
+            background-color: var(--upgrade-blue);
+            color: var(--white);
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .logout-btn:hover {
+            background-color: #3ca7d7;
+            transform: translateY(-2px);
+        }
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 100%;
+        }
+        .dashboard-container {
+            display: flex;
+            margin-top: 110px;
+            min-height: calc(100vh - 80px);
+        }
+        .sidebar {
+            width: 250px;
+            background-color: var(--yellow-accent);
+            padding: 2rem 1rem;
+            border-radius: 0 30px 30px 0;
+            margin: 2rem 0 2rem 2rem;
+        }
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            background-color: var(--light-blue);
+            border-radius: 15px;
+            text-decoration: none;
+            color: var(--dark-blue);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .sidebar-item:hover {
+            background-color: #8fb5cc;
+            transform: translateX(5px);
+        }
+        .sidebar-item.active {
+            background-color: #7fa5bc;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        .sidebar-icon {
+            width: 30px;
+            height: 30px;
+            background-color: var(--dark-blue);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+        }
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+        }
+        .dashboard-title {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: var(--white);
+        }
+        .analytics-container {
+            background-color: var(--yellow-accent);
+            padding: 2.5rem;
+            border-radius: 30px;
+            color: var(--dark-blue);
+            position: relative;
+        }
+        .analytics-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        .analytics-title {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--dark-blue);
+        }
+        
+        /* Enhanced Similarity Score Bubble */
+        .similarity-score-bubble {
+            background: linear-gradient(135deg, var(--yellow-accent), #ffd700);
+            border-radius: 50%;
+            width: 250px;
+            height: 250px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem auto;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            border: 8px solid var(--white);
+            animation: pulse 2s infinite;
+            position: relative;
+            overflow: hidden;
+        }
+        .similarity-score-bubble::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shine 3s infinite;
+        }
+        .similarity-score-bubble .score-label {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--dark-blue);
+            margin-bottom: 0.5rem;
+            z-index: 1;
+        }
+        .similarity-score-bubble .score-value {
+            font-size: 4rem;
+            font-weight: bold;
+            color: var(--dark-blue);
+            z-index: 1;
+        }
+        .similarity-score-bubble .score-percent {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--dark-blue);
+            z-index: 1;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
+        /* Chart Controls */
+        .chart-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .chart-btn {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .chart-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        .chart-btn.active {
+            background: linear-gradient(135deg, var(--yellow-accent), #ffd700);
+            color: var(--dark-blue);
+        }
+        
+        /* Enhanced Chart Container - Increased Size */
+        .chart-container {
+            max-width: 1100px;
+            height: 600px;
+            margin: 2rem auto;
+            background-color: var(--dark-blue);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Enhanced Table - Blue Header with Hover Effects */
+        .analytics-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+        }
+        .analytics-table th,
+        .analytics-table td {
+            padding: 1.2rem;
+            text-align: left;
+            border-bottom: 1px solid var(--light-blue);
+        }
+        .analytics-table th {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .analytics-table td {
+            color: var(--dark-blue);
+            font-weight: 500;
+        }
+        .analytics-table tr {
+            transition: all 0.3s ease;
+        }
+        .analytics-table tr:hover {
+            background-color: rgba(245, 213, 71, 0.2);
+            transform: scale(1.01);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .analytics-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .footer {
+            background-color: var(--dark-blue);
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: auto;
+        }
+        .footer p {
+            color: var(--text-light);
+            margin: 0.5rem 0;
+        }
+        
+        @media (max-width: 1024px) {
+            .dashboard-container {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                margin: 1rem;
+                display: flex;
+                overflow-x: auto;
+                padding: 1rem;
+                gap: 1rem;
+            }
+            .sidebar-item {
+                flex-shrink: 0;
+                margin-bottom: 0;
+            }
+            .similarity-score-bubble {
+                width: 200px;
+                height: 200px;
+            }
+            .similarity-score-bubble .score-value {
+                font-size: 3rem;
+            }
+            .chart-container {
+                height: 500px;
+            }
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .dashboard-title {
+                font-size: 2rem;
+            }
+            .analytics-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .similarity-score-bubble {
+                width: 150px;
+                height: 150px;
+            }
+            .similarity-score-bubble .score-value {
+                font-size: 2.5rem;
+            }
+            .analytics-table {
+                font-size: 0.9rem;
+            }
+            .chart-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            .chart-container {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="images/trumuse_logo.png" alt="TruMuse Logo">
+            </a>
+            <div class="nav-wrapper">
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="artists.html" class="active">Artists</a>
+                    <a href="businesses.html">Businesses</a>
+                    <a href="about.html">About Us</a>
+                </div>
+                <div class="user-menu">
+                    <div class="user-icon"><span>👤</span></div>
+                    <a href="login.html" class="logout-btn">Logout</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <a href="artist-upload.html" class="sidebar-item">
+                <div class="sidebar-icon">⬆</div>
+                <span>Upload Reference</span>
+            </a>
+            <a href="artist-attribution.html" class="sidebar-item">
+                <div class="sidebar-icon">📊</div>
+                <span>Attribution & Influence Report</span>
+            </a>
+
+            <a href="artist-heatmap.html" class="sidebar-item">
+                <div class="sidebar-icon">🗄️</div>
+                <span>HeatMap Generator</span>
+            </a>
+
+            <a href="artist-analytics.html" class="sidebar-item active">
+                <div class="sidebar-icon">📈</div>
+                <span>Analytics</span>
+            </a>
+    
+            <a href="artist-connect.html" class="sidebar-item">
+                <div class="sidebar-icon">👥</div>
+                <span>Artist Connect</span>
+            </a>
+        </aside>
+        <main class="main-content">
+            <div class="analytics-container">
+                <div class="analytics-header">
+                    <h1 class="analytics-title">REPORT ANALYTICS</h1>
+                </div>
+                
+                <!-- Enhanced Similarity Score Bubble -->
+                <div class="similarity-score-bubble" id="similarity-score-bubble" style="display: none;">
+                    <div class="score-label">Score</div>
+                    <div class="score-value" id="highest-score">0</div>
+                    <div class="score-percent">%</div>
+                </div>
+                
+                <!-- Chart Controls -->
+                <div class="chart-controls">
+                    <button class="chart-btn active" id="bar-chart-btn">
+                        <span>📊</span>
+                        <span>BAR CHART</span>
+                    </button>
+                    <button class="chart-btn" id="pie-chart-btn">
+                        <span>🥧</span>
+                        <span>PIE CHART</span>
+                    </button>
+                </div>
+                
+                <!-- Enhanced Chart Container -->
+                <div class="chart-container">
+                    <canvas id="similarityChart"></canvas>
+                </div>
+                
+                <!-- Enhanced Table (without Bio column) -->
+                <table class="analytics-table" id="analytics-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>ID</th>
+                            <th>Genre</th>
+                            <th>Nationality</th>
+                            <th>Years</th>
+                            <th>Similarity Score</th>
+                        </tr>
+                    </thead>
+                    <tbody id="analytics-table-body">
+                        <tr>
+                            <td colspan="6">Loading artist data...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+    <footer class="footer">
+        <p>&copy; 2025 TruMuse. All rights reserved.</p>
+        <p>Built with ethics, powered by creativity.</p>
+    </footer>
+    <script>
+        let currentChart = null;
+        let chartType = 'bar';
+        let artistsData = [];
+
+        async function fetchArtistData() {
+            try {
+                const response = await fetch('/get_attribution_data');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                artistsData = await response.json();
+                const tableBody = document.getElementById('analytics-table-body');
+                tableBody.innerHTML = '';
+                
+                if (artistsData.length === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="6">No artist data available.</td></tr>';
+                    return;
+                }
+
+                // Sort artists by similarity score in descending order
+                artistsData.sort((a, b) => b.similarity_score - a.similarity_score);
+
+                // Display enhanced similarity score bubble
+                const similarityBubble = document.getElementById('similarity-score-bubble');
+                const highestScoreSpan = document.getElementById('highest-score');
+                highestScoreSpan.textContent = artistsData[0].similarity_score.toFixed(1);
+                similarityBubble.style.display = 'flex';
+
+                // Create initial chart
+                createChart();
+
+                // Populate table (without Bio column)
+                artistsData.forEach(artist => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${artist.name}</td>
+                        <td>${artist.id}</td>
+                        <td>${artist.genre}</td>
+                        <td>${artist.nationality}</td>
+                        <td>${artist.years}</td>
+                        <td>${artist.similarity_score}%</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error fetching artist data:', error);
+                document.getElementById('analytics-table-body').innerHTML = '<tr><td colspan="6">Error loading artist data. Please upload an image first.</td></tr>';
+            }
+        }
+
+        function createChart() {
+            const ctx = document.getElementById('similarityChart').getContext('2d');
+            
+            if (currentChart) {
+                currentChart.destroy();
+            }
+
+            const chartData = {
+                labels: artistsData.map(artist => artist.name),
+                datasets: [{
+                    label: 'Similarity Score (%)',
+                    data: artistsData.map(artist => artist.similarity_score),
+                    backgroundColor: artistsData.map((_, index) => {
+                        if (chartType === 'bar') {
+                            return '#f5d547'; // All bars are yellow
+                        } else {
+                            const colors = ['#f5d547', '#1a4d6d', '#4db8e8', '#a8c5d6', '#0f3449'];
+                            return colors[index % colors.length];
+                        }
+                    }),
+                    borderColor: artistsData.map((_, index) => {
+                        if (chartType === 'bar') {
+                            return '#f5d547'; // All borders are yellow
+                        } else {
+                            return '#ffffff';
+                        }
+                    }),
+                    borderWidth: chartType === 'bar' ? 1 : 2,
+                    borderRadius: 0,
+                    borderSkipped: false,
+                }]
+            };
+
+            const chartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: chartType === 'pie',
+                        position: 'bottom',
+                        labels: {
+                            padding: 20,
+                            usePointStyle: true,
+                            font: {
+                                size: 12,
+                                weight: 'bold'
+                            }
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        titleColor: 'white',
+                        bodyColor: 'white',
+                        borderColor: 'rgba(255, 255, 255, 0.2)',
+                        borderWidth: 1,
+                        cornerRadius: 10,
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.label}: ${context.parsed.y || context.parsed}%`;
+                            }
+                        }
+                    }
+                }
+            };
+
+            if (chartType === 'bar') {
+                chartOptions.scales = {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        title: {
+                            display: true,
+                            text: 'Similarity Score (%)',
+                            font: { size: 14, weight: 'bold' }
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Artists',
+                            font: { size: 14, weight: 'bold' }
+                        },
+                        grid: {
+                            display: false
+                        }
+                    }
+                };
+            }
+
+            currentChart = new Chart(ctx, {
+                type: chartType,
+                data: chartData,
+                options: chartOptions
+            });
+        }
+
+        // Chart type switching
+        document.getElementById('bar-chart-btn').addEventListener('click', function() {
+            chartType = 'bar';
+            this.classList.add('active');
+            document.getElementById('pie-chart-btn').classList.remove('active');
+            createChart();
+        });
+
+        document.getElementById('pie-chart-btn').addEventListener('click', function() {
+            chartType = 'pie';
+            this.classList.add('active');
+            document.getElementById('bar-chart-btn').classList.remove('active');
+            createChart();
+        });
+
+        window.onload = fetchArtistData;
+    </script>
+</body>
+</html>
