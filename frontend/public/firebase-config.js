@@ -7,6 +7,7 @@ const firebaseConfig = {
     storageBucket: "trumuse-c2d53.firebasestorage.app", // Replace with your actual storage bucket
     messagingSenderId: "767023337153", // Replace with your actual sender ID
     appId: "1:767023337153:web:47347632049ddd43848e40",
+    redirectUrl: "https://tru-muse-pav-v1.vercel.app" // Replace with your actual app ID
 };
 
 // Export for use in other files
